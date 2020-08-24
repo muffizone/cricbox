@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -25,13 +25,14 @@ SECRET_KEY = "nug2&zw($9ut$0w&!3=4^j_bpzbnxja9d3!6sup+w_h=1p=9id"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.200.104"]
+ALLOWED_HOSTS = ["192.168.200.104", "127.0.0.1"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    # "batting.apps.BattingConfig",
+    "batsman.apps.BatsmanConfig",
+    "home.apps.HomeConfig",
     "bowler.apps.BowlerConfig",
     "player.apps.PlayerConfig",
     "venue.apps.VenueConfig",
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_tables2"
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,7 @@ ROOT_URLCONF = "london_fields.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["london_fields/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -121,3 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = "/static/"
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')

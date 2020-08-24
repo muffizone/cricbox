@@ -1,8 +1,10 @@
 from django.db import models
 
+
 # Create your models here.
 class Opposition(models.Model):
     name = models.CharField(max_length=50, primary_key=True)
+    site = models.URLField(blank=True, null=True)
 
     class Meta:
         ordering = ["name"]

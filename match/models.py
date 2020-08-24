@@ -3,7 +3,6 @@ from django.db import models
 from venue.models import Venue
 from opposition.models import Opposition
 
-# from bowler.models import Bowler
 import datetime
 
 # Create your models here.
@@ -50,9 +49,8 @@ class Match(models.Model):
     result = models.TextField("Game result", choices=Result.choices)
     mtype = models.TextField("Match Type", choices=MatchType.choices)
     home_or_away = models.TextField("Home or Away", choices=HomeAway.choices)
-    remarks = models.TextField(
-        "Extra comments or remarks about the summary", blank=True, null=True
-    )
+    remarks = models.CharField(
+        "Remarks", blank=True, null=True, max_length=200)
     report = models.TextField("Match report", blank=True, null=True)
     london_fields_score = models.PositiveSmallIntegerField("London Fields Score",)
     london_fields_wickets = models.PositiveSmallIntegerField(
@@ -67,7 +65,10 @@ class Match(models.Model):
         Opposition, on_delete=models.PROTECT, blank=True, null=True
     )
     venue = models.ForeignKey(Venue, on_delete=models.PROTECT, blank=True, null=True)
-    # bowler = models.ForeignKey(Bowler, on_delete=models.CASCADE, blank=True, null=True)
+
+    class Meta:
+        ordering = ["-played"]
+        verbose_name_plural = "matches"
 
     def __str__(self):
         return f"London Fields vs {self.opposition} at {self.venue} on {self.played}"

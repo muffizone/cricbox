@@ -1,8 +1,12 @@
 from django.contrib import admin
 
 from .models import Bowler
-from match.models import Match
+
 
 # Register your models here.
+class BowlerAdmin(admin.ModelAdmin):
+    list_display = ("player", "overs", "maidens", "runs", "wickets", "match")
+    search_fields = ["player__full_name"]
 
-admin.site.register(Bowler)
+
+admin.site.register(Bowler, BowlerAdmin)
