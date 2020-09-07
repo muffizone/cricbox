@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import batting_stats, filter_batsman
+from .views import batting_stats, FilterBatsmanView
 
 urlpatterns = [
-    # ex: /bowling/
+    # ex: /batting/
     path("stats/", batting_stats, name="batting-stats"),
-    path("<str:full_name>/", filter_batsman, name="batsman-name")
+    path("<str:full_name>/", FilterBatsmanView.as_view(), name="batsman-name")
     ]

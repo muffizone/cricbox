@@ -1,7 +1,9 @@
 body {
-  background: #fafafa;
+  background: #FFFFFF;
   color: #333333;
   margin-top: 5rem;
+  font-family: verdana, serif;
+  font-size:10pt;
 }
 
 site-logo {

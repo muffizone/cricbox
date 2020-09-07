@@ -8,6 +8,7 @@ class Opposition(models.Model):
 
     class Meta:
         ordering = ["name"]
+        db_table = "oppositions"
 
     def __str__(self):
         return self.name

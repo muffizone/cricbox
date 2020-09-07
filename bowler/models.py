@@ -1,6 +1,6 @@
 from django.db import models
 from player.models import Player
-
+from match_statistics.models import MatchStatistics
 from match.models import Match
 from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField
 
@@ -24,7 +24,7 @@ class Statistics(models.Manager):
                                                                     output_field=DecimalField(
                                                                         max_digits=2,
                                                                         decimal_places=2)),
-                                                                matches=Count('match')
+                                                                matches=Count('match_statistics')
                                                                 ).order_by(
             '-wickets')
 
@@ -37,12 +37,13 @@ class Bowler(models.Model):
         )
     runs = models.PositiveIntegerField("Runs", default=0)
     wickets = models.PositiveIntegerField("Wickets", default=0)
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, blank=True, null=True)
+    match_statistics = models.ForeignKey(MatchStatistics, on_delete=models.PROTECT)
     objects = models.Manager()
     stat_objects = Statistics()
 
     class Meta:
         ordering = ["player"]
+        db_table = "bowlers"
 
     @property
     def average(self):

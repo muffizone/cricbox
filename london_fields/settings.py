@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ["192.168.200.104", "127.0.0.1"]
 # Application definition
 
 INSTALLED_APPS = [
+    "match_statistics.apps.MatchStatisticsConfig",
     "batsman.apps.BatsmanConfig",
     "home.apps.HomeConfig",
     "bowler.apps.BowlerConfig",
@@ -44,7 +45,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_tables2"
+    "django_tables2",
+    "django_filters",
+    "django_forms_bootstrap",
+    "bootstrap4"
 ]
 
 MIDDLEWARE = [

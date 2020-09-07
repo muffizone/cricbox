@@ -1,25 +1,14 @@
 from django.db import models
 
+from django.db.models import Q
+
 from venue.models import Venue
 from opposition.models import Opposition
-
+from player.models import Player
 import datetime
 
+
 # Create your models here.
-
-
-class Result(models.TextChoices):
-    WON = "W"
-    LOST = "L"
-    NO_RESULT = "N"
-    DRAWN = "T"
-    ABANDONED = "A"
-    WALK_OVER = "WO"
-    POSTPONDED = "P"
-    RAINED_OFF = "R"
-    UNKNOWN = "U"
-
-
 class MatchType(models.TextChoices):
     FRIENDLY = "F"
     LEAGUE = "L"
@@ -32,44 +21,46 @@ class HomeAway(models.TextChoices):
     AWAY = "A"
 
 
-class EventFirst(models.TextChoices):
-    BATTED = "BAT"
-    BOWLED = "BOW"
-
-
 class Match(models.Model):
     YEARS = []
     for year in range(1997, datetime.datetime.now().year + 1):
         YEARS.append((year, year))
 
     season = models.IntegerField(
-        "Season year", default=datetime.datetime.now().year, choices=YEARS
-    )
-    played = models.DateField("Match date")
-    result = models.TextField("Game result", choices=Result.choices)
-    mtype = models.TextField("Match Type", choices=MatchType.choices)
+        "Season", default=datetime.datetime.now().year, choices=YEARS
+        )
+    date = models.DateField("Date")
+    mtype = models.TextField("Type", choices=MatchType.choices)
     home_or_away = models.TextField("Home or Away", choices=HomeAway.choices)
     remarks = models.CharField(
-        "Remarks", blank=True, null=True, max_length=200)
-    report = models.TextField("Match report", blank=True, null=True)
-    london_fields_score = models.PositiveSmallIntegerField("London Fields Score",)
-    london_fields_wickets = models.PositiveSmallIntegerField(
-        "London Fields Fallen Wickets"
-    )
-    london_fields_overs = models.PositiveSmallIntegerField("London Fields Overs used")
-    other_team_score = models.PositiveSmallIntegerField("Other team score")
-    other_team_wickets = models.PositiveSmallIntegerField("Other team Fallen Wickets")
-    other_team_overs = models.PositiveSmallIntegerField("Other team overs used")
-    london_fields_first_event = models.TextField(choices=EventFirst.choices)
+        "Remarks", blank=True, max_length=200)
     opposition = models.ForeignKey(
         Opposition, on_delete=models.PROTECT, blank=True, null=True
-    )
+        )
     venue = models.ForeignKey(Venue, on_delete=models.PROTECT, blank=True, null=True)
+    players = models.ManyToManyField(Player, blank=True, through='PlayerMatchAttribute')
 
     class Meta:
-        ordering = ["-played"]
+        ordering = ["-date"]
         verbose_name_plural = "matches"
+        db_table = "matches"
 
     def __str__(self):
-        return f"London Fields vs {self.opposition} at {self.venue} on {self.played}"
+        return f"London Fields vs {self.opposition} at {self.venue}, {self.date.strftime('%d %b, %Y')}"
 
+
+class PlayerSkills(models.TextChoices):
+    BOWLER = "BW"
+    BATSMAN = "BT"
+    ALL_ROUNDER = "AR"
+    WICKET_KEEPER = "WK"
+
+
+class PlayerMatchAttribute(models.Model):
+    player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
+    match = models.ForeignKey(Match, on_delete=models.SET_NULL, null=True)
+    skill = models.TextField("Skill Set", blank=True, null=True, choices=PlayerSkills.choices)
+    captain = models.BinaryField("Captain", default=False)
+
+    class Meta:
+        db_table = "player_match_attributes"

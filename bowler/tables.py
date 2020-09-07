@@ -29,9 +29,16 @@ class SingleBowler(tables.Table):
     economy = tables.Column(orderable=False)
     average = tables.Column(orderable=False)
     strike_rate = tables.Column(orderable=False)
+    match_season = tables.Column(accessor="match__season", verbose_name="Season")
+    match_type = tables.Column(accessor="match__mtype", verbose_name="Type")
 
     class Meta:
-        sequence = ("match", "overs", "maidens", "runs", "wickets", "economy", "average", "strike_rate")
+        attrs = {"class": "table table-striped table-bordered table-hover",
+                 "thead": {
+                     "class": "thead-light"
+                     }
+                 }
+        sequence = ("match_season", "match", "match_type", "overs", "maidens", "runs", "wickets", "economy", "average", "strike_rate")
         model = Bowler
         exclude = ("player", "id")
-        template_name = "django_tables2/bootstrap.html"
+        template_name = "django_tables2/bootstrap4.html"
