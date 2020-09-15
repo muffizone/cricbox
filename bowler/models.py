@@ -2,7 +2,7 @@ from django.db import models
 from player.models import Player
 from match_statistics.models import MatchStatistics
 from match.models import Match
-from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField
+from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField, Q
 
 
 # class based model manager
@@ -10,12 +10,12 @@ class Statistics(models.Manager):
     def get_queryset(self):
         return super().get_queryset().values('player').annotate(overs=Sum('overs'), maidens=Sum('maidens'),
                                                                 runs=Sum('runs'),
-                                                                wickets=Sum('wickets'),
-                                                                average=ExpressionWrapper(F('runs') / F('wickets'),
+                                                                total_wickets=Sum('wickets'),
+                                                                average=ExpressionWrapper(F('runs') / F('total_wickets'),
                                                                                           output_field=DecimalField(
                                                                                               max_digits=2,
                                                                                               decimal_places=2)),
-                                                                strike_rate=ExpressionWrapper(F('overs')*6/F('wickets'),
+                                                                strike_rate=ExpressionWrapper(F('overs')*6/F('total_wickets'),
                                                                                               output_field=DecimalField(
                                                                                                   max_digits=2,
                                                                                                   decimal_places=2)),
@@ -24,9 +24,11 @@ class Statistics(models.Manager):
                                                                     output_field=DecimalField(
                                                                         max_digits=2,
                                                                         decimal_places=2)),
-                                                                matches=Count('match_statistics')
+                                                                matches=Count('match_statistics'),
+                                                                fours=Count('wickets', Q(wickets=4)),
+                                                                fives=Count('wickets', Q(wickets__gt=4))
                                                                 ).order_by(
-            '-wickets')
+            '-total_wickets')
 
 
 class Bowler(models.Model):

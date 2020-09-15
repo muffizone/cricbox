@@ -22,5 +22,6 @@ urlpatterns = [
     path("players/", include("player.urls")),
     path("bowling/", include("bowler.urls")),
     path("batting/", include("batsman.urls")),
-    path("match/", include("match.urls"))
+    path("match/", include("match.urls")),
+    path("season/", include("match_statistics.urls"))
 ]

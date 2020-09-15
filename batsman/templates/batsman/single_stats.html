@@ -1,13 +1,6 @@
 {% extends "home/base.html" %}
 {% block content %}
 {% load render_table from django_tables2 %}
-{% load bootstrap4 %}
-    {% if filter %}
-        <form action="" method="get" class="form form-group col-md-5">
-            {% bootstrap_form filter.form layout='horizontal'  %}
-            {% bootstrap_button 'Filter' %}
-        </form>
-    {% endif %}
     <body>
         <br>
         <p>Batting Performances for <b>{{ player }}</b></p>

@@ -152,3 +152,24 @@ settings.json
 **/migrations/**
 
 .idea
+.DS_Store
+batsman/choices.py
+home/.DS_Store
+home/static/.DS_Store
+home/static/img/.DS_Store
+home/static/img/lfcc_logo.png
+home/static/vendor/
+home/templates/.DS_Store
+london_fields/filters.py
+london_fields/utils.py
+match/choices.py
+match/templates/match/fixtures.html
+match_statistics/choices.py
+match_statistics/tables.py
+match_statistics/templates/
+match_statistics/urls.py
+player/choices.py
+player/templates/player/profile.html
+static/img/lfcc_logo.png
+static/img/lfcc_logo_backup.gif
+static/vendor/

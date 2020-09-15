@@ -11,3 +11,4 @@ class SummingColumn(tables.Column):
 
     def render_footer(self, bound_column, table):
         return sum(bound_column.accessor.resolve(row) for row in table.data)
+

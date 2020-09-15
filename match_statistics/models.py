@@ -1,22 +1,6 @@
 from django.db import models
 from match.models import Match
-
-
-class Result(models.TextChoices):
-    WON = "W"
-    LOST = "L"
-    NO_RESULT = "N"
-    DRAWN = "T"
-    ABANDONED = "A"
-    WALK_OVER = "WO"
-    POSTPONDED = "P"
-    RAINED_OFF = "R"
-    UNKNOWN = "U"
-
-
-class EventFirst(models.TextChoices):
-    BATTED = "BAT"
-    BOWLED = "BOW"
+from .choices import Result, EventFirst
 
 
 class MatchStatistics(models.Model):
@@ -32,6 +16,12 @@ class MatchStatistics(models.Model):
     opposition_wickets = models.PositiveSmallIntegerField("Opposition Wickets")
     opposition_overs = models.PositiveSmallIntegerField("Opposition overs")
     london_fields_first_event = models.TextField(choices=EventFirst.choices)
+
+    def get_bowlers(self):
+        return self.bowler_set.get_queryset()
+
+    def get_batsman(self):
+        return self.batsman_set.get_queryset()
 
     class Meta:
         ordering = ("match", )

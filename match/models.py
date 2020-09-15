@@ -1,26 +1,12 @@
 from django.db import models
-
-from django.db.models import Q
-
 from venue.models import Venue
 from opposition.models import Opposition
 from player.models import Player
 import datetime
+from .choices import MatchType, HomeAway, PlayerSkills
 
 
 # Create your models here.
-class MatchType(models.TextChoices):
-    FRIENDLY = "F"
-    LEAGUE = "L"
-    VPCCL = "V"
-    OTHERS = "O"
-
-
-class HomeAway(models.TextChoices):
-    HOME = "H"
-    AWAY = "A"
-
-
 class Match(models.Model):
     YEARS = []
     for year in range(1997, datetime.datetime.now().year + 1):
@@ -47,13 +33,6 @@ class Match(models.Model):
 
     def __str__(self):
         return f"London Fields vs {self.opposition} at {self.venue}, {self.date.strftime('%d %b, %Y')}"
-
-
-class PlayerSkills(models.TextChoices):
-    BOWLER = "BW"
-    BATSMAN = "BT"
-    ALL_ROUNDER = "AR"
-    WICKET_KEEPER = "WK"
 
 
 class PlayerMatchAttribute(models.Model):

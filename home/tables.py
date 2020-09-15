@@ -6,5 +6,3 @@ class Scorecard(tables.Table):
     first_innings = tables.Column(orderable=False)
     second_innings = tables.Column(orderable=False)
 
-    class Meta:
-        template_name = "django_tables2/bootstrap.html"

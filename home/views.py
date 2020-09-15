@@ -4,7 +4,9 @@ from .tables import Scorecard
 import datetime
 import mimetypes
 
-LONDON_FIELDS_MAP_URL = "http://maps.google.co.uk/maps?f=q&source=s_q&hl=en&q=Martello+St,+Hackney,+London+E8,+United+Kingdom&sll=53.800651,-4.064941&sspn=19.910905,39.418945&ie=UTF8&cd=1&geocode=Ff94EgMdlR3__w&split=0&safe=on&ll=51.542559,-0.06006&spn=0.005098,0.009624&t=h&z=17"
+LONDON_FIELDS_MAP_URL = "http://maps.google.co.uk/maps?f=q&source=s_q&hl=en&q=Martello+St,+Hackney,+London+E8," \
+                        "+United+Kingdom&sll=53.800651,-4.064941&sspn=19.910905,39.418945&ie=UTF8&cd=1&" \
+                        "geocode=Ff94EgMdlR3__w&split=0&safe=on&ll=51.542559,-0.06006&spn=0.005098,0.009624&t=h&z=17"
 VPCCL_LEAGUE_TABLES_URL = "http://www.vpccl.co.uk/fixtures+results/2012/teams/londonfields.html"
 VPCCL_URL = "http://www.vpccl.co.uk"
 NELCL_URL = "http://www.nelcl.com/"
@@ -24,20 +26,8 @@ def home(request):
     return render(request, "home/home.html", context)
 
 
-def fixtures(request):
-    return render(request, "home/fixtures.html")
-
-
 def stats(request):
     return render(request, "home/stats.html")
-
-
-def players(request):
-    return render(request, "home/players.html")
-
-
-def pictures(request):
-    return render(request, "home/pictures.html")
 
 
 def history(request):
@@ -87,7 +77,7 @@ def about(request):
         'pub_on_the_park_url': PUB_ON_THE_PARK_URL,
         'instagram_page': LONDON_FIELDS_INSTAGRAM_PAGE
         }
-    return render(request, "home/about.html")
+    return render(request, "home/about.html", context=context)
 
 
 def links(request):
@@ -107,7 +97,3 @@ def handbook(request):
 
 def match_manager(request):
     return render(request, "home/match_manager.html")
-
-
-def stats(request):
-    return render(request, "home/stats.html")

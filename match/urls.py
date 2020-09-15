@@ -1,8 +1,9 @@
 from django.urls import path
 
-from .views import MatchAppearances
+from .views import AppearancesView, FixtureView
 
 urlpatterns = [
     # ex: /matches/
-    path("appearances/", MatchAppearances.as_view(), name="match-appearances"),
+    path("appearances/", AppearancesView.as_view(), name="match-appearances-player"),
+    path("fixtures/", FixtureView.as_view(), name="fixtures-overview"),
     ]

@@ -3,40 +3,22 @@ from player.models import Player
 from match.models import Match
 from match_statistics.models import MatchStatistics
 from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField, Max, Q
+from .choices import WICKET_TYPES
 
-WICKET_TYPES = (
-    ("C", "CAUGHT"),
-    ("BOW", "BOWLED"),
-    ("RO", "RUN OUT"),
-    ("RETH", "RETIRED HURT"),
-    ("RETO", "RETIRED OUT"),
-    ("CBOWL", "CAUGHT & BOWLED"),
-    ("CBEH", "CAUGHT BEHIND"),
-    ("DNB", "DID NOT BAT"),
-    ("NO", "NOT OUT"),
-    ("HB", "HANDLED BALL"),
-    ("HBT", "HIT BALL TWICE"),
-    ("HW", "HIT WICKET"),
-    ("LBW", "LBW"),
-    ("OF", "OBSTRUCTING FIELD"),
-    ("S", "STUMPED"),
-    ("TO", "TIMED OUT"),
-    ("U", "UNKNOWN"),
-    )
-
-
-# Create your models here.
 
 class Statistics(models.Manager):
     def get_queryset(self):
+        fifties = Q(Q(runs__gt=49), Q(runs__lte=99))
         return super().get_queryset().values('player').annotate(innings=Count('match_statistics'), runs_scored=Sum('runs'),
                                                                 not_out=Count('how_out', filter=Q(how_out='NO')),
-                                                                best=Max('runs'),
+                                                                highest=Max('runs'),
                                                                 average=ExpressionWrapper(
                                                                     F('runs_scored') / (F('innings') - F('not_out')),
                                                                     output_field=DecimalField(max_digits=2,
-                                                                                              decimal_places=2))). \
-            order_by("-runs")
+                                                                                              decimal_places=2)),
+                                                                fifties=Count('runs', filter=fifties),
+                                                                hundreds=Count('runs', filter=Q(runs__gt=99))). \
+            order_by("-runs_scored")
 
 
 class Batsman(models.Model):
