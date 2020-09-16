@@ -1,7 +1,7 @@
 {% extends "home/base.html" %}
 {% block content %}
 
-<h1>Welcome to the {{ year }} Season</h1>
+<h1>Welcome to the {{ YEAR }} Season</h1>
 <p>If you are returning for another season, great to have you back.</p>
 <p>If you are new to the club (and there are a lot of you this year) then you’ve made a life changing decision. Whether it’s for good or bad is debatable. </p>
 <p>If you are a new family man and have held onto to your independence through the thread of renewed membership, then please don’t lose touch as the commitments pile up; the opportunity is there for you guys to create a super crèche/ultimate dads’ day out to keep connected with the team.</p>
@@ -46,7 +46,7 @@
 	<ul>
 		<li>‘one down leg’ wide rule is gone. Wides are called by the umpire based on current, international one-day match law interpretation. </li>
 		<li>Run rate is calculated by runs and overs only; wickets down does not inform the calculation. Please see
-			<a href="https://nelcl.leaguerepublic.com/l/newsArticle/nelcl_rules_2019.html">this link</a> for full rules regarding the NELCL.
+			<a href="{{ NELCL_SCORECARD_PROCEDURES }}">this link</a> for full rules regarding the NELCL.
 		</li>
 		<li>Respect to umpires and opposition remains central to the league and captains should take responsibility for this.</li>
 	</ul>
@@ -55,13 +55,13 @@
 	</p>
 	<p>This role is ascribed to one person per match and we aim to give it to you only once per season. Twice at the most. A full detail of the role will accompany selection emails. General points to remember though: you are responsible for all the duties; you should delegate many of them and see that they are done properly; ask more experienced players for clarity if unsure. You only do it once so get fully involved and make it a good one.</p>
 	<p>We will also be offering online payments rather than cash. It has worked well in the nets so we will give it a go for the real thing. Everyone has the bank details. Get a bank app and pay online, show it to the match manager to prove payment. Boom. Match managers, you will need to confirm proof of payment or collect cash and transfer the balance to the club. A short email confirming this to the club should accompany. Full details in the
-		<a href="matchmanager.htm">Match Manager brief</a> that will be made available with selection emails.
+		<a href="{% url 'site-match_manager' %}">Match Manager brief</a> that will be made available with selection emails.
 	</p>
 	<p>
 		<b>7. 	Etiquette:</b>
 	</p>
 	<p>A reminder for the old and some info for the new. We do not have any exclusivity to the shed or the pitch at London Fields. As such, we need to be on ‘best behaviour’ with our conduct. Treat the hut with respect. Try not to wee behind the trees – instead, use the loos. Take care of the keys (hang them on the hook!!!). Be thankful and helpful towards the park staff – they can veto our use of that shed at any time. Tidy up all rubbish before leaving – even if it’s not yours. Two minutes of picking up some reprehensible person's rubbish is worth keeping a good reputation with ‘the powers that be’ in the parks. To further emphasise the importance of the above and the reality that this is a busy public space with many people scrutinising the myriad of users and uses that share it, I would urge you to
-		<a href="https://drive.google.com/file/d/145DTbtkD8e2SBZYsUFXy8ytqMHUaOmVV/view">read this (3mins max)</a> to enrich your understanding of the context that we are playing in when at London Fields.
+		<a href="{{ LONDON_FIELDS_SHED_RULES }}">read this (3mins max)</a> to enrich your understanding of the context that we are playing in when at London Fields.
 	</p>
 	<p>When it comes to etiquette during games: play hard, play fair. There is no place for swearing at oppo or umpires. Good quality banter/mental torment is ok but if the captain or a senior player tells you to pull your head in then I’d recommend you do it. Our club and the game will always be bigger than you! We have an excellent reputation amongst other teams as a competitive but fair club – no one gets to jeopardise that.</p>
 	<p>
@@ -88,10 +88,10 @@
 		<li>The captain of the winning team needs to submit results
 			<a href="2019ResultSubmission.docx" target="_blank">using this document</a> by 12noon on the Monday following the game, otherwise the points are not given.
 			<br/>Please also
-			<a href="https://nelcl.leaguerepublic.com/l/newsArticle/match_report_procedure.html">read this for more information</a>.
+			<a href="{{ NELCL_SCORECARD_PROCEDURES }}">read this for more information</a>.
 		</li>
 		<li>Please see
-			<a href="https://nelcl.leaguerepublic.com/l/newsArticle/nelcl_rules_2019.html">this link</a> for full rules regarding the NELCL.
+			<a href="{{ NELCL_RULES }}">this link</a> for full rules regarding the NELCL.
 		</li>
 	</ul>
 	<p>

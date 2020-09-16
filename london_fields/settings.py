@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     "django_tables2",
     "django_filters",
     "django_forms_bootstrap",
-    "bootstrap4"
+    "bootstrap4",
+    "crispy_forms"
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,5 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

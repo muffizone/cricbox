@@ -1,29 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 from .tables import Scorecard
-import datetime
-import mimetypes
-
-LONDON_FIELDS_MAP_URL = "http://maps.google.co.uk/maps?f=q&source=s_q&hl=en&q=Martello+St,+Hackney,+London+E8," \
-                        "+United+Kingdom&sll=53.800651,-4.064941&sspn=19.910905,39.418945&ie=UTF8&cd=1&" \
-                        "geocode=Ff94EgMdlR3__w&split=0&safe=on&ll=51.542559,-0.06006&spn=0.005098,0.009624&t=h&z=17"
-VPCCL_LEAGUE_TABLES_URL = "http://www.vpccl.co.uk/fixtures+results/2012/teams/londonfields.html"
-VPCCL_URL = "http://www.vpccl.co.uk"
-NELCL_URL = "http://www.nelcl.com/"
-PUB_ON_THE_PARK_URL = "http://www.pubonthepark.com/"
-LONDON_FIELDS_INSTAGRAM_PAGE = "https://www.instagram.com/londonfieldscc/"
+from london_fields.utils import SITE_URLS
 
 
 # Create your views here.
 def home(request):
-    context = {
-        'london_fields_map_url': LONDON_FIELDS_MAP_URL,
-        'vpccl_league_tables_url': VPCCL_LEAGUE_TABLES_URL,
-        'nelcl_url': NELCL_URL,
-        'pub_on_the_park_url': PUB_ON_THE_PARK_URL,
-        'instagram_page': LONDON_FIELDS_INSTAGRAM_PAGE
-        }
-    return render(request, "home/home.html", context)
+    return render(request, "home/home.html", context=SITE_URLS)
 
 
 def stats(request):
@@ -70,14 +52,7 @@ def history(request):
 
 
 def about(request):
-    context = {
-        'london_fields_map_url': LONDON_FIELDS_MAP_URL,
-        'vpccl_url': VPCCL_URL,
-        'nelcl_url': NELCL_URL,
-        'pub_on_the_park_url': PUB_ON_THE_PARK_URL,
-        'instagram_page': LONDON_FIELDS_INSTAGRAM_PAGE
-        }
-    return render(request, "home/about.html", context=context)
+    return render(request, "home/about.html", context=SITE_URLS)
 
 
 def links(request):
@@ -89,10 +64,7 @@ def honours(request):
 
 
 def handbook(request):
-    context = {
-        'year': datetime.datetime.now().year
-        }
-    return render(request, "home/handbook.html", context)
+    return render(request, "home/handbook.html", SITE_URLS)
 
 
 def match_manager(request):
