@@ -1,4 +1,9 @@
 import datetime
+from django.db.models import Q
+
+FIFTIES = Q(Q(runs__gt=49), Q(runs__lte=99))
+HUNDREDS = Q(runs__gt=99)
+FIVERS = Q(Q(wickets__gt=4))
 
 TABLE_ATTRS = {"class": "table table-striped table-bordered table-hover",
                "thead": {

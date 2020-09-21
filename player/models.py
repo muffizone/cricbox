@@ -1,5 +1,6 @@
 from django.db import models
-from .choices import PLAYING_ROLES, BATTING_STYLES, BOWLING_STYLES
+from .choices import PLAYING_ROLES, BATTING_STYLES, BOWLING_STYLES, APPOINTMENT_TYPES
+import datetime
 
 
 class Player(models.Model):
@@ -17,3 +18,21 @@ class Player(models.Model):
     def __str__(self):
         return self.full_name
 
+
+class Appointment(models.Model):
+    YEARS = []
+    for year in range(1997, datetime.datetime.now().year + 1):
+        YEARS.append((year, year))
+
+    name = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
+    appointment_type = models.TextField("Appointment Type", choices=APPOINTMENT_TYPES)
+    season = models.IntegerField(
+        "Season", default=datetime.datetime.now().year, choices=YEARS
+        )
+
+    class Meta:
+        ordering = ["-season"]
+        db_table = "appointments"
+
+    def __str__(self):
+        return f"{self.name}-{self.appointment_type}"

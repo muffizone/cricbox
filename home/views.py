@@ -1,7 +1,13 @@
 from django.shortcuts import render
-from .tables import Scorecard
-from london_fields.utils import SITE_URLS
-
+from .tables import Scorecard, HonoursTable, NotablePerformancesTable, VeteransTable
+from london_fields.utils import SITE_URLS, FIFTIES, HUNDREDS, FIVERS
+from django_tables2.views import MultiTableMixin
+from django.views.generic import TemplateView
+from player.models import Appointment
+from batsman.models import Batsman
+from bowler.models import Bowler
+from player.models import Player
+import datetime
 
 # Create your views here.
 def home(request):
@@ -59,8 +65,29 @@ def links(request):
     return render(request, "home/links.html")
 
 
-def honours(request):
-    return render(request, "home/honours.html")
+class HonoursView(MultiTableMixin, TemplateView):
+    template_name = "home/honours.html"
+    table_pagination = {
+        "per_page": 50
+        }
+
+    def get_tables(self):
+        return [
+            HonoursTable(Appointment.objects.filter(appointment_type="CAP").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type="VCAP").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type="MCAP").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type="FIX").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type="DTOUR").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type="ITOUR").order_by("-season")),
+            VeteransTable(Player.objects.filter(member_since__year=datetime.datetime.now().year - 10),
+                          order_by="-member_since__year"),
+            NotablePerformancesTable(Batsman.objects.filter(FIFTIES).order_by("-match_statistics__match__season"),
+                                     exclude="wickets"),
+            NotablePerformancesTable(Batsman.objects.filter(HUNDREDS).order_by("-match_statistics__match__season"),
+                                     exclude="wickets"),
+            NotablePerformancesTable(Bowler.objects.filter(FIVERS).order_by("-match_statistics__match__season"),
+                                     exclude="runs")
+            ]
 
 
 def handbook(request):

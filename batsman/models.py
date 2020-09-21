@@ -4,11 +4,10 @@ from match.models import Match
 from match_statistics.models import MatchStatistics
 from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField, Max, Q
 from .choices import WICKET_TYPES
-
+from london_fields.utils import FIFTIES, HUNDREDS
 
 class Statistics(models.Manager):
     def get_queryset(self):
-        fifties = Q(Q(runs__gt=49), Q(runs__lte=99))
         return super().get_queryset().values('player').annotate(innings=Count('match_statistics'), runs_scored=Sum('runs'),
                                                                 not_out=Count('how_out', filter=Q(how_out='NO')),
                                                                 highest=Max('runs'),
@@ -16,8 +15,8 @@ class Statistics(models.Manager):
                                                                     F('runs_scored') / (F('innings') - F('not_out')),
                                                                     output_field=DecimalField(max_digits=2,
                                                                                               decimal_places=2)),
-                                                                fifties=Count('runs', filter=fifties),
-                                                                hundreds=Count('runs', filter=Q(runs__gt=99))). \
+                                                                fifties=Count('runs', filter=FIFTIES),
+                                                                hundreds=Count('runs', filter=HUNDREDS)). \
             order_by("-runs_scored")
 
 

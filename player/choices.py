@@ -12,7 +12,7 @@ BATTING_STYLES = (
 )
 
 BOWLING_STYLES = (
-    ( "RAF", "Right-arm fast"),
+    ("RAF", "Right-arm fast"),
     ("LAF", "Left-arm fast"),
     ("RAFM", "Right-arm fast-medium"),
     ( "LAFM", "Left-arm fast medium"),
@@ -20,4 +20,16 @@ BOWLING_STYLES = (
     ("LALS", "Left-arm leg spin"),
     ( "RAOS", "Right-arm off spin"),
     ( "LAOS", "Left-arm off spin"),
+)
+
+APPOINTMENT_TYPES = (
+    ("CAP", "Captain"),
+    ("VCAP", "Vice Captain"),
+    ("MCAP", "MidWeek Captain"),
+    ("TRES", "Treasurer"),
+    ("WEB", "Webmeister"),
+    ("NET", "Netmeister"),
+    ("FIX", "Fixturer"),
+    ("DTOUR", "Domestic Tour Secretary"),
+    ("ITOUR", "International Tour Secretary")
 )
