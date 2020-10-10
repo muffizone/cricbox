@@ -156,7 +156,7 @@ settings.json
 home/.DS_Store
 home/static/.DS_Store
 home/static/img/.DS_Store
-home/static/img/lfcc_logo.png
+home/static/assets/img/lfcc_logo.png
 home/static/vendor/
 home/templates/.DS_Store
 static/img/lfcc_logo.png

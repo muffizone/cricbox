@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from .models import MatchStatistics
 from london_fields.tables import FloatColumn, SummingColumn
+from london_fields.utils import TABLE_ATTRS
 from django.db.models import F, ExpressionWrapper, DecimalField
 from match.models import Match
 
@@ -14,11 +15,7 @@ class SeasonTable(tables.Table):
     win_percent = FloatColumn(verbose_name="%")
 
     class Meta:
-        attrs = {"class": "table table-striped table-bordered table-hover",
-                 "thead": {
-                     "class": "thead-light"
-                     }
-                 }
+        attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
         fields = ("match__season", "played", "won", "draw", "loss", "no_result", "win_percent")
@@ -33,14 +30,10 @@ class OppositionTable(tables.Table):
     win_percent = FloatColumn(verbose_name="%")
 
     class Meta:
-        attrs = {"class": "table table-striped table-bordered table-hover",
-                 "thead": {
-                     "class": "thead-light"
-                     }
-                 }
+        attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("match__opposition", "played", "won", "loss", "no_result", "draw", "win_percent")
+        fields = ("match__opposition__name", "played", "won", "loss", "no_result", "draw", "win_percent")
 
 
 class VenuesTable(tables.Table):
@@ -52,14 +45,10 @@ class VenuesTable(tables.Table):
     win_percent = FloatColumn(verbose_name="%")
 
     class Meta:
-        attrs = {"class": "table table-striped table-bordered table-hover",
-                 "thead": {
-                     "class": "thead-light"
-                     }
-                 }
+        attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("match__venue", "played", "won", "loss", "no_result", "draw", "win_percent")
+        fields = ("match__venue__name", "played", "won", "loss", "no_result", "draw", "win_percent")
 
 
 # class FixturesTable(tables.Table):
@@ -71,11 +60,7 @@ class VenuesTable(tables.Table):
 #     result = tables.Column(verbose_name="Result", accessor="matchstatistics__get_result_display", linkify=("match-overview", [tables.A("matchstatistics__id")]))
 #
 #     class Meta:
-#         attrs = {"class": "table table-striped table-bordered table-hover",
-#                  "thead": {
-#                      "class": "thead-light"
-#                      }
-#                  }
+#         attrs = TABLE_ATTRS
 #         model = Match
 #         template_name = "django_tables2/bootstrap4.html"
 #         fields = ("date", "day", "opposition", "venue", "mtype", "result")
@@ -93,11 +78,7 @@ class BowlingTable(tables.Table):
 
 
     class Meta:
-        attrs = {"class": "table table-striped table-bordered table-hover",
-                 "thead": {
-                     "class": "thead-light"
-                     }
-                 }
+        attrs = TABLE_ATTRS
         template_name = "django_tables2/bootstrap4.html"
         fields = ("player", "overs", "maidens", "runs", "wickets", "economy", "average", "strike_rate")
 
@@ -110,10 +91,6 @@ class BattingTable(tables.Table):
     runs = SummingColumn()
 
     class Meta:
-        attrs = {"class": "table table-striped table-bordered table-hover",
-                 "thead": {
-                     "class": "thead-light"
-                     }
-                 }
+        attrs = TABLE_ATTRS
         template_name = "django_tables2/bootstrap4.html"
         fields = ("player", "scoring", "how_out", "bowler", "runs")

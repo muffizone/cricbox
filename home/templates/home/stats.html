@@ -1,17 +1,18 @@
 {% extends "home/base.html" %}
 {% block content %}
-<h3>Averages</h3>
-<ul>
-    <li><a href="{% url 'batsmen-stats' %}">Batting Averages</a></li>
-    <li><a href="{% url 'bowling-stats-all' %}">Bowling Averages</a></li>
-    <li><a href="{% url 'match-appearances-player' %}">Appearances</a></li>
-</ul>
-<h3>Other Statistics</h3>
-<ul>
-    <li><a href="{% url 'season-overview' %}">Season Overviews</a></li>
-    <li><a href="{% url 'opposition-overview' %}">Opposing Teams</a></li>
-    <li><a href="{% url 'venues-overview' %}">Venues</a></li>
-</ul>
-<br>
-<p><i><b>Note:</b> All statistics are sourced only from the old web site and scorebooks, and so are not complete.</i></p>
+    <h3>Averages</h3>
+    <ul>
+        <li><a href="{% url 'batsmen-stats' %}">Batting Averages</a></li>
+        <li><a href="{% url 'bowling-stats-all' %}">Bowling Averages</a></li>
+        <li><a href="{% url 'match-appearances-player' %}">Appearances</a></li>
+    </ul>
+    <h3>Other Statistics</h3>
+    <ul>
+        <li><a href="{% url 'season-overview' %}">Season Overviews</a></li>
+        <li><a href="{% url 'opposition-overview' %}">Opposing Teams</a></li>
+        <li><a href="{% url 'venues-overview' %}">Venues</a></li>
+    </ul>
+    <br>
+    <p><i><b>Note:</b> All statistics are sourced only from the old web site and scorebooks, and so are not
+        complete.</i></p>
 {% endblock content %}

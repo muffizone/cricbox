@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .tables import Scorecard, HonoursTable, NotablePerformancesTable, VeteransTable
+from .tables import Scorecard, HonoursTable, NotablePerformancesTable, VeteransTable, BestPlayer
 from london_fields.utils import SITE_URLS, FIFTIES, HUNDREDS, FIVERS
 from django_tables2.views import MultiTableMixin
 from django.views.generic import TemplateView
@@ -65,8 +65,8 @@ def links(request):
     return render(request, "home/links.html")
 
 
-class HonoursView(MultiTableMixin, TemplateView):
-    template_name = "home/honours.html"
+class PositionsView(MultiTableMixin, TemplateView):
+    template_name = "home/club_positions.html"
     table_pagination = {
         "per_page": 50
         }
@@ -81,12 +81,61 @@ class HonoursView(MultiTableMixin, TemplateView):
             HonoursTable(Appointment.objects.filter(appointment_type="ITOUR").order_by("-season")),
             VeteransTable(Player.objects.filter(member_since__year=datetime.datetime.now().year - 10),
                           order_by="-member_since__year"),
+            ]
+
+
+class PerformersView(MultiTableMixin, TemplateView):
+    template_name = "home/club_performers.html"
+    table_pagination = {
+        "per_page": 50
+        }
+
+    best_batsman_query = """
+    SELECT id, name, season, total 
+    FROM (
+            SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_runs_season
+            FROM
+                (
+                    SELECT batsmen.id, players.full_name as name, matches.season, SUM(batsmen.runs) as total
+                    FROM batsmen
+                    JOIN matches_statistics ON (batsmen.match_statistics_id = matches_statistics.id)
+                    JOIN matches ON (matches_statistics.match_id = matches.id)
+                    JOIN players ON (batsmen.player_id = players.id)
+                    GROUP BY 1,2,3
+                ) AS all_seasons
+        ) all_seasons_max
+    WHERE max_runs_season
+    ORDER BY season DESC;
+    """
+
+    best_bowler_query = """
+    SELECT id, name, season, total 
+    FROM (
+            SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_wickets_season
+            FROM
+                (
+                    SELECT bowlers.id, players.full_name as name, matches.season, SUM(bowlers.wickets) as total
+                    FROM bowlers
+                    JOIN matches_statistics ON (bowlers.match_statistics_id = matches_statistics.id)
+                    JOIN matches ON (matches_statistics.match_id = matches.id)
+                    JOIN players ON (bowlers.player_id = players.id)
+                    GROUP BY 1,2,3
+                ) AS all_seasons
+        ) all_seasons_max
+    WHERE max_wickets_season
+    ORDER BY season DESC;
+    """
+
+    def get_tables(self):
+        return [
             NotablePerformancesTable(Batsman.objects.filter(FIFTIES).order_by("-match_statistics__match__season"),
                                      exclude="wickets"),
             NotablePerformancesTable(Batsman.objects.filter(HUNDREDS).order_by("-match_statistics__match__season"),
                                      exclude="wickets"),
             NotablePerformancesTable(Bowler.objects.filter(FIVERS).order_by("-match_statistics__match__season"),
-                                     exclude="runs")
+                                     exclude="runs"),
+            BestPlayer(Batsman.objects.raw(self.best_batsman_query)),
+            BestPlayer(Bowler.objects.raw(self.best_bowler_query)),
             ]
 
 

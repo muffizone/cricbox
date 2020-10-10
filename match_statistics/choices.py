@@ -1,17 +1,15 @@
-from django.db import models
+RESULT = (
+('W', 'Won'),
+ ('L', 'Lost'),
+ ('N', 'No Result'),
+ ('T', 'Drawn'),
+ ('A', 'Abandoned'),
+ ('WO', 'Walk Over'),
+ ('P', 'Postponded'),
+ ('R', 'Rained Off'),
+ ('U', 'Unknown')
+)
 
-class Result(models.TextChoices):
-    WON = "W"
-    LOST = "L"
-    NO_RESULT = "N"
-    DRAWN = "T"
-    ABANDONED = "A"
-    WALK_OVER = "WO"
-    POSTPONDED = "P"
-    RAINED_OFF = "R"
-    UNKNOWN = "U"
-
-
-class EventFirst(models.TextChoices):
-    BATTED = "BAT"
-    BOWLED = "BOW"
+EVENT_FIRST = (
+('BAT', 'Batted'), ('BOW', 'Bowled')
+)

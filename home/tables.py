@@ -38,3 +38,12 @@ class VeteransTable(tables.Table):
 
     class Meta:
         attrs = TABLE_ATTRS
+
+
+class BestPlayer(tables.Table):
+    name = tables.Column(linkify=("player-profile", [tables.A("name")]))
+    season = tables.Column()
+    total = tables.Column()
+
+    class Meta:
+        attrs = TABLE_ATTRS

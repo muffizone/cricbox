@@ -26,7 +26,7 @@ class OppositionFilter(django_filters.FilterSet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.filters['match__mtype'].label = 'Type'
-        self.filters['match__home_or_away'].label = 'HomeorAway'
+        self.filters['match__home_or_away'].label = 'Home/Away'
         self.filters['match__venue'].label = 'Venue'
 
 
@@ -45,7 +45,7 @@ class VenueFilter(django_filters.FilterSet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.filters['match__mtype'].label = 'Type'
-        self.filters['match__home_or_away'].label = 'HomeorAway'
+        self.filters['match__home_or_away'].label = 'Home/Away'
         self.filters['match__opposition'].label = 'Opposition'
 
 
@@ -56,15 +56,15 @@ class SeasonView(SingleTableMixin, FilterView):
     template_name = "match/fixtures.html"
 
     def get_queryset(self):
-        won = Count('match', filter=Q(result='W'))
-        loss = Count('match', filter=Q(result='L'))
-        no_result = Count('match', filter=Q(result='N'))
-        draw = Count('match', filter=Q(result='D'))
+        won = Count('result', filter=Q(result='W'))
+        loss = Count('result', filter=Q(result='L'))
+        no_result = Count('result', filter=Q(result='N'))
+        draw = Count('result', filter=Q(result='D'))
 
         return self.model.objects.values('match__season').annotate(played=Count('match'), won=won, loss=loss,
                                                                         no_result=no_result, draw=draw,
                                                                         win_percent=ExpressionWrapper(F('won')/F('played'),
-                                                                                                      output_field=FloatField()))
+                                                                                                      output_field=FloatField())).order_by("-match__season")
 
 
 class OppositionView(SingleTableMixin, FilterView):
@@ -74,15 +74,15 @@ class OppositionView(SingleTableMixin, FilterView):
     template_name = "match/fixtures.html"
 
     def get_queryset(self):
-        won = Count('match', filter=Q(result='W'))
-        loss = Count('match', filter=Q(result='L'))
-        no_result = Count('match', filter=Q(result='N'))
-        draw = Count('match', filter=Q(result='D'))
+        won = Count('result', filter=Q(result='W'))
+        loss = Count('result', filter=Q(result='L'))
+        no_result = Count('result', filter=Q(result='N'))
+        draw = Count('result', filter=Q(result='D'))
 
-        return self.model.objects.values('match__opposition').annotate(played=Count('match'), won=won, loss=loss,
+        return self.model.objects.values('match__opposition__name').annotate(played=Count('match'), won=won, loss=loss,
                                                                         no_result=no_result, draw=draw,
                                                                         win_percent=ExpressionWrapper(F('won')/F('played'),
-                                                                                                      output_field=DecimalField()))
+                                                                                                      output_field=DecimalField())).order_by("-won")
 
 
 class VenuesView(SingleTableMixin, FilterView):
@@ -92,15 +92,15 @@ class VenuesView(SingleTableMixin, FilterView):
     template_name = "match/fixtures.html"
 
     def get_queryset(self):
-        won = Count('match', filter=Q(result='W'))
-        loss = Count('match', filter=Q(result='L'))
-        no_result = Count('match', filter=Q(result='N'))
-        draw = Count('match', filter=Q(result='D'))
+        won = Count('result', filter=Q(result='W'))
+        loss = Count('result', filter=Q(result='L'))
+        no_result = Count('result', filter=Q(result='N'))
+        draw = Count('result', filter=Q(result='D'))
 
-        return self.model.objects.values('match__venue').annotate(played=Count('match'), won=won, loss=loss,
+        return self.model.objects.values('match__venue__name').annotate(played=Count('match'), won=won, loss=loss,
                                                                         no_result=no_result, draw=draw,
                                                                         win_percent=ExpressionWrapper(F('won')/F('played'),
-                                                                                                      output_field=DecimalField()))
+                                                                                                      output_field=DecimalField())).order_by("-won")
 
 
 class MatchView(MultiTableMixin, TemplateView):

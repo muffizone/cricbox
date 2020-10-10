@@ -1,11 +1,11 @@
 from django.db import models
 from match.models import Match
-from .choices import Result, EventFirst
+from .choices import RESULT, EVENT_FIRST
 
 
 class MatchStatistics(models.Model):
     match = models.OneToOneField(Match, on_delete=models.CASCADE)
-    result = models.TextField("Result", choices=Result.choices)
+    result = models.TextField("Result", choices=RESULT)
     report = models.TextField("Report", blank=True, null=True)
     london_fields_overs = models.PositiveSmallIntegerField("London Fields Overs")
     london_fields_score = models.PositiveSmallIntegerField("London Fields Score",)
@@ -15,7 +15,7 @@ class MatchStatistics(models.Model):
     opposition_score = models.PositiveSmallIntegerField("Opposition score")
     opposition_wickets = models.PositiveSmallIntegerField("Opposition Wickets")
     opposition_overs = models.PositiveSmallIntegerField("Opposition overs")
-    london_fields_first_event = models.TextField(choices=EventFirst.choices)
+    london_fields_first_event = models.TextField(choices=EVENT_FIRST)
 
     def get_bowlers(self):
         return self.bowler_set.get_queryset()

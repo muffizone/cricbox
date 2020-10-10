@@ -1,21 +1,19 @@
-from django.db import models
+MATCH_TYPE = (
+    ("F", "FRIENDLY"),
+    ("L", "LEAGUE"),
+    ("V", "VPCCL"),
+    ("O", "OTHERS"),
+    ("T", "TOUR")
+)
 
+HOME_AWAY = (
+    ("H", "Home"),
+    ("A", "Away")
+)
 
-class MatchType(models.TextChoices):
-    FRIENDLY = "F"
-    LEAGUE = "L"
-    VPCCL = "V"
-    OTHERS = "O"
-    TOUR = "T"
-
-
-class HomeAway(models.TextChoices):
-    HOME = "H"
-    AWAY = "A"
-
-
-class PlayerSkills(models.TextChoices):
-    BOWLER = "BW"
-    BATSMAN = "BT"
-    ALL_ROUNDER = "AR"
-    WICKET_KEEPER = "WK"
+PLAYER_SKILLS = (
+    ("BW", "BOWLER"),
+    ("BT", "BATSMAN"),
+    ("ALL", "ALL_ROUNDER"),
+    ("WK", "WICKET_KEEPER")
+)

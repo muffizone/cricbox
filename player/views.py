@@ -28,8 +28,8 @@ class ProfileView(TemplateView):
     def get_context_data(self, **kwargs):
         full_name = kwargs.get("full_name")
         context = super().get_context_data(**kwargs)
-        context["batting"] = BatsmenTable(Batsman.stat_objects.filter(player=full_name), exclude="player")
-        context["bowling"] = BowlersTable(Bowler.stat_objects.filter(player=full_name), exclude="player")
+        context["batting"] = BatsmenTable(Batsman.stat_objects.filter(player__full_name=full_name), exclude="player")
+        context["bowling"] = BowlersTable(Bowler.stat_objects.filter(player__full_name=full_name), exclude="player")
         context["player"] = Player.objects.filter(full_name=full_name)[0]
         context["match_league"] = list(Match.objects.filter(players__full_name=full_name, mtype="L"))
         context["match_friendly"] = list(Match.objects.filter(players__full_name=full_name, mtype="F"))

@@ -22,7 +22,7 @@ class AppearancesFilter(django_filters.FilterSet):
         super().__init__(**kwargs)
         self.filters['season'].label = 'Season'
         self.filters['mtype'].label = 'Type'
-        self.filters['home_or_away'].label = 'HomeorAway'
+        self.filters['home_or_away'].label = 'Home/Away'
         self.filters['opposition'].label = 'Opposition'
         self.filters['venue'].label = 'Venue'
 
@@ -40,7 +40,7 @@ class FixturesFilter(django_filters.FilterSet):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.filters['mtype'].label = 'Type'
-        self.filters['home_or_away'].label = 'HomeorAway'
+        self.filters['home_or_away'].label = 'Home/Away'
         self.filters['opposition'].label = 'Opposition'
         self.filters['venue'].label = 'Venue'
 
@@ -52,7 +52,7 @@ class AppearancesView(SingleTableMixin, FilterView):
     template_name = "match/appearances.html"
 
     def get_queryset(self):
-        return Match.objects.values('players').annotate(appearances=Count('players'))
+        return Match.objects.values('players__full_name').annotate(appearances=Count('players__full_name')).order_by('-appearances')
 
 
 class FixtureView(SingleTableMixin, FilterView):

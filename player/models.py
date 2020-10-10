@@ -4,12 +4,13 @@ import datetime
 
 
 class Player(models.Model):
-    full_name = models.CharField(max_length=50, primary_key=True)
+    full_name = models.CharField(max_length=50)
     member_since = models.DateField("Date Joined", null=True, blank=True)
     email = models.EmailField("Email", null=True, blank=True)
     playing_role = models.TextField(choices=PLAYING_ROLES, blank=True)
     batting_style = models.TextField(choices=BATTING_STYLES, blank=True)
     bowling_style = models.TextField(choices=BOWLING_STYLES, blank=True)
+    active = models.BooleanField(blank=True, default=True)
 
     class Meta:
         ordering = ["full_name"]

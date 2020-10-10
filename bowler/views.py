@@ -35,7 +35,7 @@ class BowlersFilter(MatchFilter):
 
 class BowlersView(SingleTableMixin, FilterView):
     filterset_class = BowlersFilter
-    template_name = "batsman/batsman.html"
+    template_name = "bowler/bowler.html"
     table_class = BowlersTable
     table_pagination = {
         "per_page": 50

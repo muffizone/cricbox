@@ -3,7 +3,7 @@ from venue.models import Venue
 from opposition.models import Opposition
 from player.models import Player
 import datetime
-from .choices import MatchType, HomeAway, PlayerSkills
+from .choices import MATCH_TYPE, HOME_AWAY, PLAYER_SKILLS
 
 
 # Create your models here.
@@ -16,8 +16,8 @@ class Match(models.Model):
         "Season", default=datetime.datetime.now().year, choices=YEARS
         )
     date = models.DateField("Date")
-    mtype = models.TextField("Type", choices=MatchType.choices)
-    home_or_away = models.TextField("Home or Away", choices=HomeAway.choices)
+    mtype = models.TextField("Type", choices=MATCH_TYPE)
+    home_or_away = models.TextField("Home or Away", choices=HOME_AWAY)
     remarks = models.CharField(
         "Remarks", blank=True, max_length=200)
     opposition = models.ForeignKey(
@@ -38,8 +38,11 @@ class Match(models.Model):
 class PlayerMatchAttribute(models.Model):
     player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
     match = models.ForeignKey(Match, on_delete=models.SET_NULL, null=True)
-    skill = models.TextField("Skill Set", blank=True, null=True, choices=PlayerSkills.choices)
+    skill = models.TextField("Skill Set", blank=True, null=True, choices=PLAYER_SKILLS)
     captain = models.BinaryField("Captain", default=False)
 
     class Meta:
         db_table = "player_match_attributes"
+
+    def __str__(self):
+        return f"{self.skill}"

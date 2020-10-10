@@ -1,25 +1,34 @@
 {% extends "home/base.html" %}
 {% block content %}
-    {% load django_tables2 %}
-    <b>{{ match_stats.match.get_mtype_display | title }} Match vs {{ match_stats.match.opposition }}, {{ match_stats.match.date }}, {{ match_stats.match.venue }}</b>
-    <br>
-    <b>London Fields vs {{ match_stats.match.opposition }}</b>
-    <p> {{ match_stats.report }}</p>
-    {% if match_stats.london_fields_first_event == 'BOW' %}
-        <b> {{ match_stats.match.opposition }} CC Batting</b>
-        <p> {{ match_stats.opposition_score }} for {{ match_stats.opposition_wickets }} in {{ match_stats.opposition_overs }}</p>
-        <b> London Fields Bowling</b>
-        {% render_table tables.0 %}
-        <b> London Fields Batting</b>
-        <p> {{ match_stats.london_fields_score }} for {{ match_stats.london_fields_wickets }} in {{ match_stats.london_fields_overs }}</p>
-        {% render_table tables.1 %}
-    {% else %}
-        <b> London Fields Batting</b>
-        <p> {{ match_stats.london_fields_score }} for {{ match_stats.london_fields_wickets }} in {{ match_stats.london_fields_overs }}</p>
-        {% render_table tables.1 %}
-        <b> {{ match_stats.match.opposition }} CC Batting</b>
-        <p> {{ match_stats.opposition_score }} for {{ match_stats.opposition_wickets }} in {{ match_stats.opposition_overs }}</p>
-        <b> London Fields Bowling</b>
-        {% render_table tables.0 %}
-    {% endif %}
+    <section id="about" class="about">
+        <div class="container">
+            {% load django_tables2 %}
+            <b>{{ match_stats.match.get_mtype_display | title }} Match
+                vs {{ match_stats.match.opposition }}, {{ match_stats.match.date }}, {{ match_stats.match.venue }}</b>
+            <br>
+            <b>London Fields vs {{ match_stats.match.opposition }}</b>
+            <p> {{ match_stats.report }}</p>
+            {% if match_stats.london_fields_first_event == 'BOW' %}
+                <b> {{ match_stats.match.opposition }} CC Batting</b>
+                <p> {{ match_stats.opposition_score }} for {{ match_stats.opposition_wickets }}
+                    in {{ match_stats.opposition_overs }}</p>
+                <b> London Fields Bowling</b>
+                {% render_table tables.0 %}
+                <b> London Fields Batting</b>
+                <p> {{ match_stats.london_fields_score }} for {{ match_stats.london_fields_wickets }}
+                    in {{ match_stats.london_fields_overs }}</p>
+                {% render_table tables.1 %}
+            {% else %}
+                <b> London Fields Batting</b>
+                <p> {{ match_stats.london_fields_score }} for {{ match_stats.london_fields_wickets }}
+                    in {{ match_stats.london_fields_overs }}</p>
+                {% render_table tables.1 %}
+                <b> {{ match_stats.match.opposition }} CC Batting</b>
+                <p> {{ match_stats.opposition_score }} for {{ match_stats.opposition_wickets }}
+                    in {{ match_stats.opposition_overs }}</p>
+                <b> London Fields Bowling</b>
+                {% render_table tables.0 %}
+            {% endif %}
+        </div>
+    </section><!-- End About Section -->
 {% endblock %}

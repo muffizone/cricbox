@@ -1,0 +1,81 @@
+{% extends "home/base.html" %}
+{% block content %}
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                {% load render_table from django_tables2 %}
+                <h2>Club Positions</h2>
+                <hr/>
+                <div>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active show" data-toggle="tab" href="#captains" id="captains-tab"
+                               role="tab" aria-controls="captains" aria-selected="true">Captains</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#vice-captains" id="vice-captains-tab"
+                               role="tab" aria-controls="vice-captains" aria-selected="false">Vice-Captains</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#midweek-captains" id="midweek-captains-tab"
+                               role="tab" aria-controls="midweek-captains" aria-selected="false">Midweek Captains</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#fixture-secretaries"
+                               id="fixture-secretaries-tab" role="tab" aria-controls="fixture-secretaries"
+                               aria-selected="false">Fixture Secretaries</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                               aria-haspopup="true" aria-expanded="false">Tour Czars</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#domestic">Domestic</a>
+                                <a class="dropdown-item" href="#international">International</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#veterans" id="veterans-tab" role="tab"
+                               aria-controls="veterans" aria-selected="false">Veterans</a>
+                        </li>
+                    </ul>
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active show" id="captains" role="tabpanel"
+                             aria-labelledby="captains-tab">
+                            {% render_table tables.0 %}
+                        </div>
+                        <div class="tab-pane fade" id="vice-captains" role="tabpanel"
+                             aria-labelledby="vice-captains-tab">
+                            {% render_table tables.1 %}
+                        </div>
+                        <div class="tab-pane fade" id="midweek-captains" role="tabpanel"
+                             aria-labelledby="midweek-captains-tab">
+                            {% render_table tables.2 %}
+                        </div>
+                        <div class="tab-pane fade" id="fixture-secretaries" role="tabpanel"
+                             aria-labelledby="fixture-secretaries-tab">
+                            {% render_table tables.3 %}
+                        </div>
+                        <div class="tab-pane fade" id="domestic" role="tabpanel"
+                             aria-labelledby="domestic-tab">
+                            {% render_table tables.4 %}
+                        </div>
+                        <div class="tab-pane fade" id="international" role="tabpanel"
+                             aria-labelledby="international-tab">
+                            {% render_table tables.5 %}
+                        </div>
+                        <div class="tab-pane fade" id="veterans" role="tabpanel"
+                             aria-labelledby="veterans-tab">
+                            {% render_table tables.6 %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+  $(function () {
+    $('#myTab li:last-child a').tab('show')
+  })
+
+    </script>
+{% endblock content %}

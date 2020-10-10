@@ -1,85 +1,123 @@
 {% extends "home/base.html" %}
 {% block content %}
-{% load render_table from django_tables2 %}
-<body>
-    <h1>London Fields CC Honours Board</h1>
-<ul>
-    <li><a href="#Captains">Captains</a></li>
-    <li><a href="#Vice Captains">Vice Captains</a></li>
-    <li><a href="#Midweek">Midweek Captains</a></li>
-    <li><a href="#Fixtures">Fixture Secretaries</a></li>
-    <li><a href="#Domestic Judges">Domestic Tour Judges</a></li>
-    <li><a href="#International Judges">International Tour Judges</a></li>
-    <li><a href="#Notables">Notable Achievements</a></li>
-</ul>
-<hr />
-<h1><a name="Captains"></a>Captains</h1>
-{% render_table tables.0 %}
-<hr />
-<h1><a name="Vice Captains"></a>Vice Captains</h1><br/>
-{% render_table tables.1 %}
-<hr />
-<h1><a name="Midweek"></a>Midweek Captains</h1><br/>
-{% render_table tables.2 %}
-<hr />
-<h1><a name="Fixtures"></a>Fixture Secretaries</h1><br/>
-{% render_table tables.3 %}
-<hr />
-<h1><a name="Domestic Judges"></a>Domestic Tour Judges</h1><br/>
-{% render_table tables.4 %}
-<hr />
-<h1><a name="International Judges"></a>International Tour Judges</h1><br/>
-{% render_table tables.5 %}
-<hr />
-<h1><a name="Notables"></a>Notable Achievements</h1>
-<p><b>Club Veterans (more than 10 years of awesomeness)</b></p>
- {% render_table tables.6 %}
-<hr />
-<p><b>50s</b></p>
- {% render_table tables.7 %}
-<hr />
-<p><b>Centurions</b></p>
- {% render_table tables.8 %}
-<hr />
-<p><b>Five Wicket Hauls</b></p>
- {% render_table tables.9 %}
-<hr />
-<p><b>50s &amp; 5fers In Same Match</b></p>
-<p>Dave Muskett<br/>
-Rob Harries 5-?-?-5 &amp; 54* vs Crescent &amp; Star 30/7/05<br/></p>
-<p><b>Centuries</b></p>
-<p>Alec McCrindle, 102* vs Lamb, 12/7/2003<br/>
-Dave Hickey, 112 not out (from 47 balls) vs <a href="../data/report.aspx?id=515">Occasional Casuals</a>, 20th August 2006<br/>
-Paul Teasdale, 167 not out vs Saracen Riffs, 6th May 2007<br/>
-John Avery 126 v Ljubljana CC, August 2007<br/>
-Jason Lord 112 vs Occasional Casuals 2/9/07<br/>
-Travis Willis 2008 v Camberwell Beauties<br/>
-Steve Fernbank 2008 v Camberwell Beauties<br/>
-Karl Laccis 2009<br/>
-Robin Friend 2009</p>
-<p><b>High Score</b></p>
-<p>Paul Teasdale, 167 not out vs Saracen Riffs, 6th May 2007</p>
-<p><b>Best Bowling</b></p>
-<p>Ben Sanders 6/15 V Bengal Tigers, 2009?</p>
-<p><b>5 Wickets In Match</b></p>
-<p>Paul Turley 2.5-?-14-5, League match vs Cally Casuals 19th July 2003, London Fields<br/>
-Ben Sanders 6/15 V Bengal Tigers, 2009?<br/>
-Rob Harries 5-?-?-5 &amp; 54* vs Crescent &amp; Star 30/7/05</p>
-<p><b>100s On Tour</b></p>
-<p>John Avery 126 v Ljubljana CC, August 2007</p>
-<p><b>Midweek 50s</b></p>
-<p>Dave Hickey 50* v Norfolk &amp; Chance, VPCCL 5/6/06<br/>
-Will Isaac 50* v HSBC, VPCCL Cup 22/6/06<br/>
-Shaun DuPlessis 50* v HSBC, VPCCL Cup 22/6/06<br/>
-Dave Hickey 51* v HSBC, VPCCL Cup 22/6/06<br/>
-Alec McCrindle 51* v Norfolk &amp; Chance, VPCCL Cup 6/7/06<br/>
-Shaun DuPlessis 51* v Vallance 13/7/06<br/>
-Shaun DuPlessis 51* v Island 25/7/06<br/>
-Will Isaac 53 v Phoenix Management, VPCCL 1/8/06<br/>
-Will Isaac 54* v Vallance, VPCCL 12/6/07<br/>
-Jason Lord 50* v Pacific, VPCCL 31/7/07<br/>
-Jason Lord 52* v Chat's Palace 13/5/09</p>
-<p><b>Midweek 5fers</b></p>
-<p>Tyrone Graham 5. 0. 23. 5 v Central London 8/5/07</p>
-</body>
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                {% load render_table from django_tables2 %}
+                <h1>Honours Board</h1>
+                <br/>
+                <h2>Club Positions</h2>
+                <hr/>
+                <div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active show" data-toggle="tab" href="#captains">Captains</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#vice-captains">Vice-Captains</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#midweek-captains">Midweek Captains</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#fixture-secretaries">Fixture Secretaries</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="true" aria-expanded="false">Tour Czars</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#domestic">Domestic</a>
+                            <a class="dropdown-item" href="#international">International</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#veterans">Veterans</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active show" id="captains">
+                        {% render_table tables.0 %}
+                    </div>
+                    <div class="tab-pane fade" id="vice-captains">
+                        {% render_table tables.1 %}
+                    </div>
+                    <div class="tab-pane fade" id="midweek-captains">
+                        {% render_table tables.2 %}
+                    </div>
+                    <div class="tab-pane fade" id="fixture-secretaries">
+                        {% render_table tables.3 %}
+                    </div>
+                    <div class="tab-pane fade" id="domestic">
+                        {% render_table tables.4 %}
+                    </div>
+                    <div class="tab-pane fade" id="international">
+                        {% render_table tables.5 %}
+                    </div>
+                    <div class="tab-pane fade" id="veterans">
+                        {% render_table tables.6 %}
+                    </div>
+                </div>
+                </div>
+                <br/>
+                <hr/>
+                <br/>
+                <h2>Notable Performances</h2>
+                <div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#50s">50s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#centurions">100s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#five-wicket-hauls">5w</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#best-batsman">Top Scorer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#best-bowler">Top Wicket Taker</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active show" id="50s">
+                        {% render_table tables.7 %}
+                    </div>
+                    <div class="tab-pane fade" id="centurions">
+                        {% render_table tables.8 %}
+                    </div>
+                    <div class="tab-pane fade" id="five-wicket-hauls">
+                        {% render_table tables.9 %}
+                    </div>
+                    <div class="tab-pane fade" id="best-batsman">
+                        {% render_table tables.10 %}
+                    </div>
+                    <div class="tab-pane fade" id="best-bowler">
+                        {% render_table tables.11 %}
+                    </div>
+                </div>
+                </div>
+                <br/>
+                <br/>
+                <hr/>
+            </div>
+        </div>
+    </section>
+{#    <script>#}
+{#        $('a[data-toggle="tab"]').click(function (e) {#}
+{#            e.preventDefault();#}
+{#            $(this).tab('show');#}
+{#        });#}
+{##}
+{#        $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {#}
+{#            var id = $(e.target).attr("href");#}
+{#            sessionStorage.setItem('selectedTab', id)#}
+{#        });#}
+{##}
+{#        var selectedTab = sessionStorage.getItem('selectedTab');#}
+{#        if (selectedTab != null) {#}
+{#            $('a[data-toggle="tab"][href="' + selectedTab + '"]').tab('show');#}
+{#        }#}
+{#    </script>#}
 {% endblock content %}

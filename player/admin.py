@@ -6,6 +6,7 @@ from .models import Player, Appointment
 class PlayerAdmin(admin.ModelAdmin):
     list_display = ["full_name", "member_since", "playing_role", "batting_style", "bowling_style"]
     search_fields = ["full_name"]
+    list_filter = ["playing_role", "batting_style", "bowling_style"]
 
 
 class AppointmentAdmin(admin.ModelAdmin):

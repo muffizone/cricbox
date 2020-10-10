@@ -8,7 +8,7 @@ from london_fields.utils import FIFTIES, HUNDREDS
 
 class Statistics(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().values('player').annotate(innings=Count('match_statistics'), runs_scored=Sum('runs'),
+        return super().get_queryset().values('player__full_name').annotate(innings=Count('match_statistics'), runs_scored=Sum('runs'),
                                                                 not_out=Count('how_out', filter=Q(how_out='NO')),
                                                                 highest=Max('runs'),
                                                                 average=ExpressionWrapper(

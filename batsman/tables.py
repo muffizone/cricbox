@@ -5,20 +5,20 @@ from london_fields.utils import TABLE_ATTRS
 
 
 class BatsmenTable(tables.Table):
-    player = tables.Column(linkify=("player-profile", [tables.A("player")]))
-    innings = tables.Column(order_by=("innings", "player"), verbose_name="Inns", linkify=("batsman-stats",
-                                                                                          [tables.A("player")]))
-    runs_scored = tables.Column(order_by=("runs_scored", "player"), verbose_name="Runs")
-    not_out = tables.Column(order_by=("not_out", "player"), verbose_name="NO")
-    highest = tables.Column(order_by=("best", "player"), verbose_name="HS")
-    average = FloatColumn(order_by=("average", "player"), verbose_name="Avg")
+    player__full_name = tables.Column(linkify=("player-profile", [tables.A("player__full_name")]))
+    innings = tables.Column(order_by=("innings", "player__full_name"), verbose_name="Inns", linkify=("batsman-stats",
+                                                                                          [tables.A("player__full_name")]))
+    runs_scored = tables.Column(order_by=("runs_scored", "player__full_name"), verbose_name="Runs")
+    not_out = tables.Column(order_by=("not_out", "player__full_name"), verbose_name="NO")
+    highest = tables.Column(order_by=("best", "player__full_name"), verbose_name="HS")
+    average = FloatColumn(order_by=("average", "player__full_name"), verbose_name="Avg")
     fifties = tables.Column(verbose_name="50")
     hundreds = tables.Column(verbose_name="100")
 
     class Meta:
         attrs = TABLE_ATTRS
         model = Batsman
-        fields = ("player", "innings", "runs_scored", "not_out", "highest", "average", "fifties", "hundreds")
+        fields = ("player__full_name", "innings", "runs_scored", "not_out", "highest", "average", "fifties", "hundreds")
 
 
 class BatsmanTable(tables.Table):

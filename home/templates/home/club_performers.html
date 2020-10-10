@@ -1,0 +1,47 @@
+{% extends "home/base.html" %}
+{% block content %}
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                {% load render_table from django_tables2 %}
+                <h2>Notable Performances</h2>
+                <div>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#50s">50s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#centurions">100s</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#five-wicket-hauls">5w</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#best-batsman">Top Scorer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#best-bowler">Top Wicket Taker</a>
+                    </li>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active show" id="50s">
+                        {% render_table tables.0 %}
+                    </div>
+                    <div class="tab-pane fade" id="centurions">
+                        {% render_table tables.1 %}
+                    </div>
+                    <div class="tab-pane fade" id="five-wicket-hauls">
+                        {% render_table tables.2 %}
+                    </div>
+                    <div class="tab-pane fade" id="best-batsman">
+                        {% render_table tables.3 %}
+                    </div>
+                    <div class="tab-pane fade" id="best-bowler">
+                        {% render_table tables.4 %}
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}

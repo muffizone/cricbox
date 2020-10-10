@@ -1,117 +1,95 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-{#<img src="{% static "img/lfcc_logo.gif" %}" alt="London Fields Logo">#}
 <head>
-
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="London Fields CC Website">
     <meta name="author" content="Mufaddal Presswala">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!-- Favicons -->
+    <link href="{% static "img/../../static/assets/img/lfcc_logo.png" %}" rel="icon">
+    {#    <link href="{% static "img/lfcc_logo.png" %}" rel="apple-touch-icon">#}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    {#    <link href="{% static 'assets/vendor/venobox/venobox.css'%}" rel="stylesheet">#}
+    {#    <link href="{% static 'assets/vendor/owl.carousel/assets/owl.carousel.min.css'%}" rel="stylesheet">#}
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
     {% if title %}
-        <title>London Fields - {{ title }}</title>
+        <title>London Fields CC - {{ title }}</title>
     {% else %}
-        <title>London Fields</title>
+        <title>London Fields CC</title>
     {% endif %}
 </head>
 <body>
-    <script> src="{% static 'vendor/jquery/jquery.slim.min.js' %}"</script>
-    <script> src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"</script>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-          <a class="navbar-brand" href="{% url 'site-home' %}">
-              <img src="{% static "img/lfcc_logo.png" %}" class="img-fluid float-left" alt="London Fields Logo">
-              London Fields<br>
-              <small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cricket Club</small>
-          </a>
-        <div class="container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="{% url 'site-home' %}">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'fixtures-overview' %}">Fixtures</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'site-honours' %}">Honours</a>
-              </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Stats</a>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="{% url 'batsmen-stats' %}">Batting Averages</a>
-                      <a class="dropdown-item" href="{% url 'bowling-stats-all' %}">Bowling Averages</a>
-                      <a class="dropdown-item" href="{% url 'match-appearances-player' %}">Appearances</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="{% url 'season-overview' %}">Season Overview</a>
-                      <a class="dropdown-item" href="{% url 'opposition-overview' %}">Opposition Overview</a>
-                      <a class="dropdown-item" href="{% url 'venues-overview' %}">Venue Overview</a>
-                    </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'players' %}">Players</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'site-history' %}">History</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'site-about' %}">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'site-links' %}">Links</a>
-              </li>
-            </ul>
-          </div>
-            <!-- Navbar Right Side -->
-{#            <div class="navbar-nav">#}
-{#              <a class="nav-item nav-link" href="#">Login</a>#}
-{#              <a class="nav-item nav-link" href="#">Register</a>#}
-{#            </div>#}
+<header id="header" class="fixed-top">
+    <div class="container d-flex">
+        <div class="logo mr-auto">
+            <h1 class="text-light"><a href="{% url 'site-home' %}"><span>London Fields CC</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <a href="{% url 'site-home' %}"><img src="{% static "img/../../static/assets/img/lfcc_logo.png" %}" alt=""
+                                                 class="img-fluid"></a>
         </div>
-      </nav>
-    <main role="main" class="container">
-      <div class="row">
-        <div class="col-lg-12 text-justify">
-          <br>
-        <!-- Django Filter snippet -->
-        {% if filter %}
-            {% load bootstrap4 %}
-            <form action="" method="get" class="form form-group col-md-5">
-                {% bootstrap_form filter.form layout='horizontal' horizontal_field_class="col-md-5"%}
-                {% bootstrap_button 'Filter' %}
-            </form>
-        {% endif %}
-          {% block content %}{% endblock %}
-        </div>
-{#        <div class="col-md-4">#}
-{#          <div class="content-section">#}
-{#            <h3>Our Sidebar</h3>#}
-{#            <p class='text-muted'>You can put any information here you'd like.#}
-{#              <ul class="list-group">#}
-{#                <li class="list-group-item list-group-item-light">Latest Posts</li>#}
-{#                <li class="list-group-item list-group-item-light">Announcements</li>#}
-{#                <li class="list-group-item list-group-item-light">Calendars</li>#}
-{#                <li class="list-group-item list-group-item-light">etc</li>#}
-{#              </ul>#}
-{#            </p>#}
-{#          </div>#}
-{#        </div>#}
-      </div>
-    </main>
+        <nav class="nav-menu d-none d-lg-block">
+            <ul>
+                <li class="active"><a href="{% url 'site-home' %}">Home</a></li>
+                <li><a href="{% url 'fixtures-overview' %}">Fixtures</a></li>
+                <li class="drop-down"><a href="#">Honours</a>
+                    <ul>
+                        <li><a href="{% url 'site-positions' %}">Club Positions</a></li>
+                        <li><a href="{% url 'site-performers' %}">Club Performers</a></li>
+                    </ul>
+                </li>
+                <li class="drop-down"><a href="">Stats</a>
+                    <ul>
+                        <li><a href="{% url 'batsmen-stats' %}">Batting</a></li>
+                        <li><a href="{% url 'bowling-stats-all' %}">Bowling</a></li>
+                        <li><a href="{% url 'match-appearances-player' %}">Appearances</a></li>
+                        <li class="drop-down"><a href="#">Overview</a>
+                            <ul>
+                                <li><a href="{% url 'season-overview' %}">Season</a></li>
+                                <li><a href="{% url 'opposition-overview' %}">Opposition</a></li>
+                                <li><a href="{% url 'venues-overview' %}">Venue</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+                <li><a href="{% url 'players' %}">Players</a></li>
+                <li><a href="{% url 'site-history' %}">History</a></li>
+                <li><a href="{% url 'site-about' %}">About</a></li>
+                <li><a href="{% url 'site-links' %}">Links</a></li>
+            </ul>
+        </nav><!-- .nav-menu -->
+        <div class="header-social-links">
+            <a href="https://www.instagram.com/londonfieldscc/" class="instagram"><i class="icofont-instagram"></i></a>
+        </div>
+    </div>
+</header><!-- End Header -->
+<a href="#" class="back-to-top"><i class="bx bxs-up-arrow-alt"></i></a>
+{% block content %}{% endblock content %}
+<script src="{% static 'assets/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/venobox/venobox.min.js' %}"></script>
+<script src="{% static 'assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
 </body>
 </html>

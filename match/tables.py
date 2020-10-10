@@ -3,12 +3,12 @@ from london_fields.utils import TABLE_ATTRS
 
 
 class AppearancesTable(tables.Table):
-    players = tables.Column(verbose_name="Player", linkify=("player-profile", [tables.A("players")]))
+    players__full_name = tables.Column(verbose_name="Player", linkify=("player-profile", [tables.A("players__full_name")]))
     appearances = tables.Column()
 
     class Meta:
         attrs = TABLE_ATTRS
-        fields = ("players", "appearances")
+        fields = ("players__full_name", "appearances")
 
 
 class FixturesTable(tables.Table):

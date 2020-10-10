@@ -25,7 +25,7 @@ SECRET_KEY = "nug2&zw($9ut$0w&!3=4^j_bpzbnxja9d3!6sup+w_h=1p=9id"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.200.104", "127.0.0.1"]
+ALLOWED_HOSTS = ["192.168.200.105", "127.0.0.1", "192.168.200.145", "0.0.0.0"]
 
 
 # Application definition
@@ -48,8 +48,7 @@ INSTALLED_APPS = [
     "django_tables2",
     "django_filters",
     "django_forms_bootstrap",
-    "bootstrap4",
-    "crispy_forms"
+    "bootstrap4"
 ]
 
 MIDDLEWARE = [
@@ -82,6 +81,27 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "london_fields.wsgi.application"
 
+# LOGGING = {
+#     'version': 1,
+#     'filters': {
+#         'require_debug_true': {
+#             '()': 'django.utils.log.RequireDebugTrue',
+#         }
+#     },
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'filters': ['require_debug_true'],
+#             'class': 'logging.StreamHandler',
+#         }
+#     },
+#     'loggers': {
+#         'django.db.backends': {
+#             'level': 'DEBUG',
+#             'handlers': ['console'],
+#         }
+#     }
+# }
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases

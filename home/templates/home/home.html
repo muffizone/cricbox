@@ -1,16 +1,35 @@
 {% extends "home/base.html" %}
+{% load static %}
 {% block content %}
-<span>
-   <p>Welcome to the Internet home of London Fields Cricket Club. We're a community cricket club based in
-      <a href="{{ LONDON_FIELDS_MAP_URL }}">
-      Hackney, North East London</a>, and we're members of the <a href="{{ NELCL_URL }}">
-      North East London Cricket League</a>. We're often to be found in
-      <a href="{{ PUB_ON_THE_PARK_URL }}">Pub On The Park</a>.
-   </p>
-   <p>You can also take a look at the <a href="{{ VPCCL_LEAGUE_TABLES_URL }}">Midweek Site</a>, and the <a
-      href="{{ NELCL_URL }}">current league table</a>.</p>
-   <p><b>Latest news:</b></p>
-</span>
-<p><b>New!</b> Check out our <a href="{{ LONDON_FIELDS_INSTAGRAM_PAGE }}">Instagram page!</a></p>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" style="padding: 60px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-start"
+                     data-aos="fade-up">
+                    <div>
+                        <h1>Welcome to the Internet home of London Fields Cricket Club.</h1>
+                        <p>
+                            We're a community cricket club based in <a href="{{ LONDON_FIELDS_MAP_URL }}"> Hackney,
+                            North East London</a>
+                            We're members of the <a href="{{ NELCL_URL }}"> North East London Cricket League</a>.
+                        </p>
+                        <p>We are always on the lookout for new talent, so if you are interested in any form of cricket,
+                            please free to connect with us via the club email available in the <a
+                                    href="{% url 'site-about' %}">About</a> page.</p>
+                        <p>We're often to be found in <a href="{{ PUB_ON_THE_PARK_URL }}">Pub On The Park</a> near the
+                            London Fields cricket ground.</p>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1941.3020337584833!2d-0.05930249991072224!3d51.54139696097361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761cef428856eb%3A0x7390f67937733cad!2sLondon%20Fields%20Cricket%20Club!5e0!3m2!1sen!2suk!4v1601756574132!5m2!1sen!2suk"
+                                width="600" height="450" frameborder="0" style="border:0;" allowfullscreen=""
+                                aria-hidden="false" tabindex="0"></iframe>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left">
+                    <img src="{% static 'img/../../static/assets/img/club_pitch.jpg' %}" class="img-fluid" alt="">
+                </div>
+            </div>
+        </div>
+    </section><!-- End Hero -->
 {% endblock content %}
+
 

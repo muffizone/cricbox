@@ -8,7 +8,7 @@ from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField, Q
 # class based model manager
 class Statistics(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().values('player').annotate(overs=Sum('overs'), maidens=Sum('maidens'),
+        return super().get_queryset().values('player__full_name').annotate(overs=Sum('overs'), maidens=Sum('maidens'),
                                                                 runs=Sum('runs'),
                                                                 total_wickets=Sum('wickets'),
                                                                 average=ExpressionWrapper(F('runs') / F('total_wickets'),
@@ -32,7 +32,7 @@ class Statistics(models.Manager):
 
 
 class Bowler(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.PROTECT, blank=True, null=True)
+    player = models.ForeignKey(Player, on_delete=models.PROTECT)
     overs = models.PositiveIntegerField("Overs", default=0)
     maidens = models.PositiveIntegerField(
         "Maidens", blank=True, default=0

@@ -1,103 +1,109 @@
 {% extends "home/base.html" %}
 {% block content %}
     {% load django_tables2 %}
-    <div><b> {{ player.full_name }}</b></div>
-    <div class="card-title">Player Information</div>
-    <div class="col-md-8">
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Club Joined</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{ player.member_since }}
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>{{ player.full_name }}'s Career Summary</h2>
+                <div class="card-title"><h3>Player Information</h3></div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Club Joined</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ player.member_since }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Playing role</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ player.get_playing_role_display }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Batting Style</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ player.get_batting_style_display }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Bowling Style</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ player.get_bowling_style_display }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Playing role</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{ player.get_playing_role_display }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Batting Style</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{ player.get_batting_style_display }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Bowling Style</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{ player.get_bowling_style_display }}
+                <h3>Batting Career</h3>
+                {% render_table batting %}
+                <h3>Bowling Career</h3>
+                {% render_table bowling %}
+                <div class="card-title"><h3>Career Information</h3></div>
+                <div class="col-md-8">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">League Debut</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_league | last }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last League</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_league | first }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Friendly Debut</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_friendly | last }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last Friendly</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_friendly | first }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">VPCCL Debut</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_vpccl | last }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Last VPCCL</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{ match_vpccl | first }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-     <b>Batting Averages</b>
-        {% render_table batting %}
-     <b>Bowling Averages</b>
-        {% render_table bowling %}
-     <div class="card-title">Career Information</div>
-    <div class="col-md-8">
-        <div class="card mb-3">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">League Debut</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                    {{ match_league | first }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Last League</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ match_league | last }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Friendly Debut</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ match_friendly | first }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Last Friendly</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ match_friendly | last }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">VPCCL Debut</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ match_vpccl | first }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <h6 class="mb-0">Last VPCCL</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        {{ match_vpccl | last }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
 {% endblock %}
