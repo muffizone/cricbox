@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -31,14 +32,14 @@ ALLOWED_HOSTS = ["192.168.200.105", "127.0.0.1", "192.168.200.145", "0.0.0.0"]
 # Application definition
 
 INSTALLED_APPS = [
-    "match_statistics.apps.MatchStatisticsConfig",
-    "batsman.apps.BatsmanConfig",
-    "home.apps.HomeConfig",
-    "bowler.apps.BowlerConfig",
-    "player.apps.PlayerConfig",
+    # "match_statistics.apps.MatchStatisticsConfig",
+    # "batsman.apps.BatsmanConfig",
+    # "home.apps.HomeConfig",
+    # "bowler.apps.BowlerConfig",
+    # "player.apps.PlayerConfig",
     "venue.apps.VenueConfig",
-    "match.apps.MatchConfig",
-    "opposition.apps.OppositionConfig",
+    # "match.apps.MatchConfig",
+    # "opposition.apps.OppositionConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     "django_tables2",
     "django_filters",
     "django_forms_bootstrap",
-    "bootstrap4"
+    "bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -110,7 +111,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "london_fields",
-        "HOST": "127.0.0.1",
+        "HOST": "192.168.200.103",
         "USER": "django",
         "PASSWORD": "Wz4vK36!DSeh%N",
     }
@@ -153,7 +154,7 @@ STATIC_URL = "/static/"
 #     os.path.join(BASE_DIR, "static"),
 # ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 

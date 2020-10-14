@@ -6,7 +6,12 @@ from match.models import Match
 from match_statistics.models import MatchStatistics
 from opposition.models import Opposition
 from venue.models import Venue
-from player.choices import PLAYING_ROLES, BATTING_STYLES, BOWLING_STYLES, APPOINTMENT_TYPES
+from player.choices import (
+    PLAYING_ROLES,
+    BATTING_STYLES,
+    BOWLING_STYLES,
+    APPOINTMENT_TYPES,
+)
 from batsman.choices import WICKET_TYPES
 from match.choices import MATCH_TYPE, HOME_AWAY, PLAYER_SKILLS
 from match_statistics.choices import RESULT, EVENT_FIRST
@@ -25,11 +30,15 @@ days_between_dates = time_between_dates.days
 for i in range(1, 100):
     random_number_of_days = random.randrange(days_between_dates)
     random_date = start_date + datetime.timedelta(days=random_number_of_days)
-    p = Player(i, full_name=f"FOO{str(i)}", email=f"foo{str(i)}@email.com",
-               playing_role=PLAYING_ROLES[randint(0, len(PLAYING_ROLES) - 1)][0],
-               batting_style=BATTING_STYLES[randint(0, len(BATTING_STYLES) - 1)][0],
-               bowling_style=BOWLING_STYLES[randint(0, len(BOWLING_STYLES) - 1)][0],
-               member_since=random_date)
+    p = Player(
+        i,
+        full_name=f"FOO{str(i)}",
+        email=f"foo{str(i)}@email.com",
+        playing_role=PLAYING_ROLES[randint(0, len(PLAYING_ROLES) - 1)][0],
+        batting_style=BATTING_STYLES[randint(0, len(BATTING_STYLES) - 1)][0],
+        bowling_style=BOWLING_STYLES[randint(0, len(BOWLING_STYLES) - 1)][0],
+        member_since=random_date,
+    )
     p.save()
 
 for i in range(1, 20):
@@ -46,13 +55,17 @@ for i in range(1, 250):
     random_number_of_days = random.randrange(days_between_dates)
     random_date = start_date + datetime.timedelta(days=random_number_of_days)
 
-    m = Match(season=random_date.year, date=random_date,
-              mtype=MATCH_TYPE[randint(0, len(MATCH_TYPE) - 1)][0], home_or_away=HOME_AWAY[randint(0, 1)][0],
-              venue=v[randint(0, len(v) - 1)], opposition=o[randint(0, len(o) - 1)],
-              )
+    m = Match(
+        season=random_date.year,
+        date=random_date,
+        mtype=MATCH_TYPE[randint(0, len(MATCH_TYPE) - 1)][0],
+        home_or_away=HOME_AWAY[randint(0, 1)][0],
+        venue=v[randint(0, len(v) - 1)],
+        opposition=o[randint(0, len(o) - 1)],
+    )
     m.save()
     first = randint(0, 80)
-    players = p[first:first + 11]
+    players = p[first : first + 11]
     for player in players:
         m.players.add(player)
         m.save()
@@ -63,12 +76,17 @@ for match in matches:
     london_fields_score = randint(100, 250)
     opposition_score = randint(100, 250)
     result = "W" if london_fields_score > opposition_score else "L"
-    match_stat = MatchStatistics(match=match, result=result, london_fields_overs=randint(0, 40),
-                                 london_fields_score=london_fields_score,
-                                 london_fields_wickets=randint(3, 10), opposition_score=opposition_score,
-                                 opposition_overs=randint(0, 40), opposition_wickets=randint(3, 10),
-                                 london_fields_first_event=EVENT_FIRST[randint(0, 1)][0]
-                                 )
+    match_stat = MatchStatistics(
+        match=match,
+        result=result,
+        london_fields_overs=randint(0, 40),
+        london_fields_score=london_fields_score,
+        london_fields_wickets=randint(3, 10),
+        opposition_score=opposition_score,
+        opposition_overs=randint(0, 40),
+        opposition_wickets=randint(3, 10),
+        london_fields_first_event=EVENT_FIRST[randint(0, 1)][0],
+    )
     match_stat.save()
 
 match_stats = MatchStatistics.objects.all()
@@ -76,12 +94,23 @@ match_stats = MatchStatistics.objects.all()
 for match_stat in match_stats:
     players = match_stat.match.players.all()
     for plr in players[6:]:
-        b = Bowler(player=plr, overs=randint(2, 6), maidens=randint(0, 3), runs=randint(15, 40), wickets=randint(0, 7),
-                   match_statistics=match_stat)
+        b = Bowler(
+            player=plr,
+            overs=randint(2, 6),
+            maidens=randint(0, 3),
+            runs=randint(15, 40),
+            wickets=randint(0, 7),
+            match_statistics=match_stat,
+        )
         b.save()
     for idx, plr in enumerate(players[:7]):
-        bat = Batsman(player=plr, runs=randint(0, 120), how_out=WICKET_TYPES[randint(0, len(WICKET_TYPES) - 1)][0],
-                      bowler=f"BAR{str(idx)}", match_statistics=match_stat)
+        bat = Batsman(
+            player=plr,
+            runs=randint(0, 120),
+            how_out=WICKET_TYPES[randint(0, len(WICKET_TYPES) - 1)][0],
+            bowler=f"BAR{str(idx)}",
+            match_statistics=match_stat,
+        )
         bat.save()
 
 
@@ -100,22 +129,21 @@ for year in YEARS:
 # change existing appointments
 
 for a in Appointment.objects.all():
-    a.season = YEARS[randint(0, len(YEARS)-1)]
+    a.season = YEARS[randint(0, len(YEARS) - 1)]
     a.appointment_type = APPOINTMENT_TYPES[randint(0, len(APPOINTMENT_TYPES) - 1)][0]
     a.save()
 
 
 # remove
-for i in Bowler.objects.filter(player__full_name__startswith="FOO"):
-    i.delete()
+# for i in Bowler.objects.filter(player__full_name__startswith="FOO"):
+#     i.delete()
 
-for i in Player.objects.filter(full_name__startswith="FOO"):
-    i.delete()
-
+# for i in Player.objects.filter(full_name__startswith="FOO"):
+#     i.delete()
 
 
 # bulk delete
-Bowler.objects.all().delete()
-Batsman.objects.all().delete()
-MatchStatistics.objects.all().delete()
-Match.objects.all().delete()
+# Bowler.objects.all().delete()
+# Batsman.objects.all().delete()
+# MatchStatistics.objects.all().delete()
+# Match.objects.all().delete()
