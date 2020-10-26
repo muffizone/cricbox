@@ -4,45 +4,48 @@ import django_filters
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 from django.db.models import Count
-
+from django.db.models.functions import Concat
+from django.db.models import Value as V
+from london_fields.utils import INVALID_PLAYERS_MATCH
 
 # Create your views here.
 class AppearancesFilter(django_filters.FilterSet):
     class Meta:
         model = Match
         fields = {
-                'season': ['exact'],
-                'mtype': ['exact'],
-                'home_or_away': ['exact'],
-                'opposition': ['exact'],
-                'venue': ['exact'],
-            }
+            "season": ["exact"],
+            "mtype": ["exact"],
+            "home_or_away": ["exact"],
+            "opposition": ["exact"],
+            "venue": ["exact"],
+        }
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.filters['season'].label = 'Season'
-        self.filters['mtype'].label = 'Type'
-        self.filters['home_or_away'].label = 'Home/Away'
-        self.filters['opposition'].label = 'Opposition'
-        self.filters['venue'].label = 'Venue'
+        self.filters["season"].label = "Season"
+        self.filters["mtype"].label = "Type"
+        self.filters["home_or_away"].label = "Home/Away"
+        self.filters["opposition"].label = "Opposition"
+        self.filters["venue"].label = "Venue"
 
 
 class FixturesFilter(django_filters.FilterSet):
     class Meta:
         model = Match
         fields = {
-                'mtype': ['exact'],
-                'home_or_away': ['exact'],
-                'opposition': ['exact'],
-                'venue': ['exact'],
-            }
+            "mtype": ["exact"],
+            "home_or_away": ["exact"],
+            "opposition": ["exact"],
+            "venue": ["exact"],
+            "season": ["exact"],
+        }
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.filters['mtype'].label = 'Type'
-        self.filters['home_or_away'].label = 'Home/Away'
-        self.filters['opposition'].label = 'Opposition'
-        self.filters['venue'].label = 'Venue'
+        self.filters["mtype"].label = "Type"
+        self.filters["home_or_away"].label = "Home/Away"
+        self.filters["opposition"].label = "Opposition"
+        self.filters["venue"].label = "Venue"
 
 
 class AppearancesView(SingleTableMixin, FilterView):
@@ -52,7 +55,17 @@ class AppearancesView(SingleTableMixin, FilterView):
     template_name = "match/appearances.html"
 
     def get_queryset(self):
-        return Match.objects.values('players__full_name').annotate(appearances=Count('players__full_name')).order_by('-appearances')
+        return (
+            Match.objects.values(
+                "players__id",
+                players__full_name=Concat(
+                    "players__first_name", V(" "), "players__last_name"
+                ),
+            )
+            .annotate(appearances=Count("players__id"))
+            .exclude(INVALID_PLAYERS_MATCH)
+            .order_by("-appearances")
+        )
 
 
 class FixtureView(SingleTableMixin, FilterView):

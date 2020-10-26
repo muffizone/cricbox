@@ -26,7 +26,7 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.200.105", "127.0.0.1", "192.168.200.145", "0.0.0.0"]
 
 
 # Application definition
@@ -88,10 +88,10 @@ WSGI_APPLICATION = "london_fields.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.environ["DJANGO_DB_DATABASE"],
-        "HOST": os.environ["DJANGO_DB_HOSTNAME"],
-        "USER": os.environ["DJANGO_DB_USERNAME"],
-        "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
+        "NAME": "london_fields",
+        "HOST": "192.168.200.103",
+        "USER": "django",
+        "PASSWORD": "Wz4vK36!DSeh%N",
     }
 }
 
@@ -128,9 +128,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, "web_static_assets"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

@@ -1,5 +1,11 @@
 from django.shortcuts import render
-from .tables import Scorecard, HonoursTable, NotablePerformancesTable, VeteransTable, BestPlayer
+from .tables import (
+    Scorecard,
+    HonoursTable,
+    NotablePerformancesTable,
+    VeteransTable,
+    BestPlayer,
+)
 from london_fields.utils import SITE_URLS, FIFTIES, HUNDREDS, FIVERS
 from django_tables2.views import MultiTableMixin
 from django.views.generic import TemplateView
@@ -20,20 +26,64 @@ def stats(request):
 
 def history(request):
     london_fields_scorecard = [
-        {"name": "Osman", "first_innings": "5 b. Ripley", "second_innings": "6 c. Erwood"},
-        {"name": "Chapman", "first_innings": "2 b. Ripley", "second_innings": "0 b. Ripley"},
-        {"name": "Barber", "first_innings": "0 b. Ripley", "second_innings": "5 b. Jonson"},
-        {"name": "James", "first_innings": "2 stumpt Trigg", "second_innings": "10 b. Ripley"},
-        {"name": "Burrow", "first_innings": "0 st. Messenger", "second_innings": "6 c. Erwood"},
-        {"name": "Lorimer", "first_innings": "3 b. Messenger", "second_innings": "5 c. Jonson"},
-        {"name": "Pearce", "first_innings": "25 not out", "second_innings": "10 b. Ripley"},
-        {"name": "Large", "first_innings": "1 b. Ripley", "second_innings": "6 c. Jonson"},
-        {"name": "Low", "first_innings": "3 b. Ripley", "second_innings": "2 stumpt Ripley"},
-        {"name": "Hoare", "first_innings": "4 b. Crisford", "second_innings": "1 run out"},
-        {"name": "Yeats", "first_innings": "0 b. Messenger", "second_innings": "7 not out"},
+        {
+            "name": "Osman",
+            "first_innings": "5 b. Ripley",
+            "second_innings": "6 c. Erwood",
+        },
+        {
+            "name": "Chapman",
+            "first_innings": "2 b. Ripley",
+            "second_innings": "0 b. Ripley",
+        },
+        {
+            "name": "Barber",
+            "first_innings": "0 b. Ripley",
+            "second_innings": "5 b. Jonson",
+        },
+        {
+            "name": "James",
+            "first_innings": "2 stumpt Trigg",
+            "second_innings": "10 b. Ripley",
+        },
+        {
+            "name": "Burrow",
+            "first_innings": "0 st. Messenger",
+            "second_innings": "6 c. Erwood",
+        },
+        {
+            "name": "Lorimer",
+            "first_innings": "3 b. Messenger",
+            "second_innings": "5 c. Jonson",
+        },
+        {
+            "name": "Pearce",
+            "first_innings": "25 not out",
+            "second_innings": "10 b. Ripley",
+        },
+        {
+            "name": "Large",
+            "first_innings": "1 b. Ripley",
+            "second_innings": "6 c. Jonson",
+        },
+        {
+            "name": "Low",
+            "first_innings": "3 b. Ripley",
+            "second_innings": "2 stumpt Ripley",
+        },
+        {
+            "name": "Hoare",
+            "first_innings": "4 b. Crisford",
+            "second_innings": "1 run out",
+        },
+        {
+            "name": "Yeats",
+            "first_innings": "0 b. Messenger",
+            "second_innings": "7 not out",
+        },
         {"name": "Extras", "first_innings": "Byes 2", "second_innings": "Byes 3"},
         {"name": "Total", "first_innings": "47", "second_innings": "53"},
-        ]
+    ]
     clapton_scorecard = [
         {"name": "Glaizer", "first_innings": "16 b. Pearce"},
         {"name": "Robbin", "first_innings": "18 c. Lorimer"},
@@ -47,12 +97,12 @@ def history(request):
         {"name": "Jaines", "first_innings": "not out"},
         {"name": "Smith", "first_innings": "2 c. Osman"},
         {"name": "Extras", "first_innings": "Byes 11"},
-        {"name": "Total", "first_innings": "149"}
-        ]
+        {"name": "Total", "first_innings": "149"},
+    ]
     tables = [
         Scorecard(london_fields_scorecard),
-        Scorecard(clapton_scorecard, exclude="second_innings")
-        ]
+        Scorecard(clapton_scorecard, exclude="second_innings"),
+    ]
 
     return render(request, "home/history.html", {"tables": tables})
 
@@ -67,28 +117,52 @@ def links(request):
 
 class PositionsView(MultiTableMixin, TemplateView):
     template_name = "home/club_positions.html"
-    table_pagination = {
-        "per_page": 50
-        }
+    table_pagination = {"per_page": 50}
 
     def get_tables(self):
         return [
-            HonoursTable(Appointment.objects.filter(appointment_type="CAP").order_by("-season")),
-            HonoursTable(Appointment.objects.filter(appointment_type="VCAP").order_by("-season")),
-            HonoursTable(Appointment.objects.filter(appointment_type="MCAP").order_by("-season")),
-            HonoursTable(Appointment.objects.filter(appointment_type="FIX").order_by("-season")),
-            HonoursTable(Appointment.objects.filter(appointment_type="DTOUR").order_by("-season")),
-            HonoursTable(Appointment.objects.filter(appointment_type="ITOUR").order_by("-season")),
-            VeteransTable(Player.objects.filter(member_since__year=datetime.datetime.now().year - 10),
-                          order_by="-member_since__year"),
-            ]
+            HonoursTable(
+                Appointment.objects.filter(appointment_type__name="Captain").order_by(
+                    "-season"
+                )
+            ),
+            HonoursTable(
+                Appointment.objects.filter(
+                    appointment_type__name="Vice Captain"
+                ).order_by("-season")
+            ),
+            HonoursTable(
+                Appointment.objects.filter(
+                    appointment_type__name="MidWeek Captain"
+                ).order_by("-season")
+            ),
+            HonoursTable(
+                Appointment.objects.filter(appointment_type__name="Fixturer").order_by(
+                    "-season"
+                )
+            ),
+            HonoursTable(
+                Appointment.objects.filter(
+                    appointment_type__name="Domestic Tour Secretary"
+                ).order_by("-season")
+            ),
+            HonoursTable(
+                Appointment.objects.filter(
+                    appointment_type__name="International Tour Secretary"
+                ).order_by("-season")
+            ),
+            VeteransTable(
+                Player.objects.filter(
+                    member_since__year=datetime.datetime.now().year - 10
+                ),
+                order_by="-member_since__year",
+            ),
+        ]
 
 
 class PerformersView(MultiTableMixin, TemplateView):
     template_name = "home/club_performers.html"
-    table_pagination = {
-        "per_page": 50
-        }
+    table_pagination = {"per_page": 50}
 
     best_batsman_query = """
     SELECT id, name, season, total 
@@ -96,11 +170,12 @@ class PerformersView(MultiTableMixin, TemplateView):
             SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_runs_season
             FROM
                 (
-                    SELECT batsmen.id, players.full_name as name, matches.season, SUM(batsmen.runs) as total
+                    SELECT players.id, concat(players.first_name, ' ', players.last_name) as name, matches.season, SUM(batsmen.runs) as total
                     FROM batsmen
                     JOIN matches_statistics ON (batsmen.match_statistics_id = matches_statistics.id)
                     JOIN matches ON (matches_statistics.match_id = matches.id)
                     JOIN players ON (batsmen.player_id = players.id)
+                    WHERE players.first_name!='Extras'
                     GROUP BY 1,2,3
                 ) AS all_seasons
         ) all_seasons_max
@@ -114,7 +189,7 @@ class PerformersView(MultiTableMixin, TemplateView):
             SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_wickets_season
             FROM
                 (
-                    SELECT bowlers.id, players.full_name as name, matches.season, SUM(bowlers.wickets) as total
+                    SELECT players.id , concat(players.first_name, ' ', players.last_name) as name, matches.season, SUM(bowlers.wickets) as total
                     FROM bowlers
                     JOIN matches_statistics ON (bowlers.match_statistics_id = matches_statistics.id)
                     JOIN matches ON (matches_statistics.match_id = matches.id)
@@ -128,15 +203,27 @@ class PerformersView(MultiTableMixin, TemplateView):
 
     def get_tables(self):
         return [
-            NotablePerformancesTable(Batsman.objects.filter(FIFTIES).order_by("-match_statistics__match__season"),
-                                     exclude="wickets"),
-            NotablePerformancesTable(Batsman.objects.filter(HUNDREDS).order_by("-match_statistics__match__season"),
-                                     exclude="wickets"),
-            NotablePerformancesTable(Bowler.objects.filter(FIVERS).order_by("-match_statistics__match__season"),
-                                     exclude="runs"),
+            NotablePerformancesTable(
+                Batsman.objects.filter(FIFTIES).order_by(
+                    "-match_statistics__match__season"
+                ),
+                exclude="wickets",
+            ),
+            NotablePerformancesTable(
+                Batsman.objects.filter(HUNDREDS).order_by(
+                    "-match_statistics__match__season"
+                ),
+                exclude="wickets",
+            ),
+            NotablePerformancesTable(
+                Bowler.objects.filter(FIVERS).order_by(
+                    "-match_statistics__match__season"
+                ),
+                exclude="runs",
+            ),
             BestPlayer(Batsman.objects.raw(self.best_batsman_query)),
             BestPlayer(Bowler.objects.raw(self.best_bowler_query)),
-            ]
+        ]
 
 
 def handbook(request):

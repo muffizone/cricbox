@@ -1,21 +1,44 @@
 from django.db import models
 from match.models import Match
-from .choices import RESULT, EVENT_FIRST
+from .choices import EVENT_FIRST
+
+
+class Result(models.Model):
+    name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "results"
 
 
 class MatchStatistics(models.Model):
-    match = models.OneToOneField(Match, on_delete=models.CASCADE)
-    result = models.TextField("Result", choices=RESULT)
-    report = models.TextField("Report", blank=True, null=True)
-    london_fields_overs = models.PositiveSmallIntegerField("London Fields Overs")
-    london_fields_score = models.PositiveSmallIntegerField("London Fields Score",)
-    london_fields_wickets = models.PositiveSmallIntegerField(
-        "London Fields Wickets"
+    match = models.OneToOneField(Match, on_delete=models.CASCADE, null=True)
+    result = models.ForeignKey(
+        Result, verbose_name="Result", on_delete=models.PROTECT, null=True
     )
-    opposition_score = models.PositiveSmallIntegerField("Opposition score")
-    opposition_wickets = models.PositiveSmallIntegerField("Opposition Wickets")
-    opposition_overs = models.PositiveSmallIntegerField("Opposition overs")
-    london_fields_first_event = models.TextField(choices=EVENT_FIRST)
+    report = models.TextField("Report", blank=True, null=True)
+    london_fields_overs = models.PositiveSmallIntegerField(
+        "London Fields Overs", null=True
+    )
+    london_fields_score = models.PositiveSmallIntegerField(
+        "London Fields Score", null=True
+    )
+    london_fields_wickets = models.PositiveSmallIntegerField(
+        "London Fields Wickets", null=True
+    )
+    opposition_score = models.PositiveSmallIntegerField("Opposition score", null=True)
+    opposition_wickets = models.PositiveSmallIntegerField(
+        "Opposition Wickets", null=True
+    )
+    opposition_overs = models.PositiveSmallIntegerField("Opposition overs", null=True)
+    london_fields_first_event = models.PositiveSmallIntegerField(
+        choices=EVENT_FIRST, default=0, null=True
+    )
+    report_byline = models.CharField(max_length=200, null=True)
+    report_author = models.CharField(max_length=200, null=True)
+    report_headline = models.CharField(max_length=200, null=True)
 
     def get_bowlers(self):
         return self.bowler_set.get_queryset()
@@ -24,7 +47,7 @@ class MatchStatistics(models.Model):
         return self.batsman_set.get_queryset()
 
     class Meta:
-        ordering = ("match", )
+        ordering = ("match",)
         db_table = "matches_statistics"
         verbose_name_plural = "Match Statistics"
 

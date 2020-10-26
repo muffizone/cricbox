@@ -1,20 +1,31 @@
-from player.models import Player, Appointment
+from player.models import (
+    Player,
+    Appointment,
+    AppointmentType,
+    BowlingStyle,
+    BattingStyle,
+    PlayingRole,
+)
 from bowler.models import Bowler
 from random import randint
-from batsman.models import Batsman
-from match.models import Match
-from match_statistics.models import MatchStatistics
+from batsman.models import Batsman, WicketType
+from match.models import Match, HomeAway, MatchType, PlayerSkill
+from match_statistics.models import MatchStatistics, Result
 from opposition.models import Opposition
 from venue.models import Venue
-from player.choices import (
+from .choices import (
     PLAYING_ROLES,
     BATTING_STYLES,
     BOWLING_STYLES,
     APPOINTMENT_TYPES,
+    WICKET_TYPES,
+    MATCH_TYPE,
+    HOME_AWAY,
+    PLAYER_SKILLS,
+    RESULT,
+    EVENT_FIRST,
 )
-from batsman.choices import WICKET_TYPES
-from match.choices import MATCH_TYPE, HOME_AWAY, PLAYER_SKILLS
-from match_statistics.choices import RESULT, EVENT_FIRST
+
 import datetime
 import random
 
@@ -26,13 +37,31 @@ time_between_dates = end_date - start_date
 
 days_between_dates = time_between_dates.days
 
-# add
+# add seed data to models
+seed_structuring = {
+    PlayingRole: PLAYING_ROLES,
+    BattingStyle: BATTING_STYLES,
+    BowlingStyle: BOWLING_STYLES,
+    AppointmentType: APPOINTMENT_TYPES,
+    WicketType: WICKET_TYPES,
+    MatchType: MATCH_TYPE,
+    HomeAway: HOME_AWAY,
+    PlayerSkill: PLAYER_SKILLS,
+    Result: RESULT,
+}
+
+for k, v in seed_structuring.items():
+    for x in v:
+        x = k(name=x[1])
+        x.save()
+
 for i in range(1, 100):
     random_number_of_days = random.randrange(days_between_dates)
     random_date = start_date + datetime.timedelta(days=random_number_of_days)
     p = Player(
         i,
-        full_name=f"FOO{str(i)}",
+        first_name=f"FOO{str(i)}",
+        last_name=f"FAA{str(i)}",
         email=f"foo{str(i)}@email.com",
         playing_role=PLAYING_ROLES[randint(0, len(PLAYING_ROLES) - 1)][0],
         batting_style=BATTING_STYLES[randint(0, len(BATTING_STYLES) - 1)][0],
@@ -147,3 +176,12 @@ for a in Appointment.objects.all():
 # Batsman.objects.all().delete()
 # MatchStatistics.objects.all().delete()
 # Match.objects.all().delete()
+# PlayingRole.objects.all().delete()
+# BattingStyle.objects.all().delete()
+# BowlingStyle.objects.all().delete()
+# AppointmentType.objects.all().delete()
+# WicketType.objects.all().delete()
+# MatchType.objects.all().delete()
+# HomeAway.objects.all().delete()
+# PlayerSkill.objects.all().delete()
+# Result.objects.all().delete()

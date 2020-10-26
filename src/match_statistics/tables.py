@@ -11,14 +11,25 @@ class SeasonTable(tables.Table):
     won = tables.Column(verbose_name="W")
     draw = tables.Column(verbose_name="D")
     loss = tables.Column(verbose_name="L")
-    no_result = tables.Column(verbose_name="N/R")
+    abandoned = tables.Column(verbose_name="A")
     win_percent = FloatColumn(verbose_name="%")
+    match__season = tables.TemplateColumn(
+        f'<a href="{{% url "fixtures-overview" %}}?season={{{{ value }}}}">{{{{ value }}}}</a>'
+    )
 
     class Meta:
         attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("match__season", "played", "won", "draw", "loss", "no_result", "win_percent")
+        fields = (
+            "match__season",
+            "played",
+            "won",
+            "draw",
+            "loss",
+            "abandoned",
+            "win_percent",
+        )
 
 
 class OppositionTable(tables.Table):
@@ -26,14 +37,25 @@ class OppositionTable(tables.Table):
     won = tables.Column(verbose_name="W")
     draw = tables.Column(verbose_name="D")
     loss = tables.Column(verbose_name="L")
-    no_result = tables.Column(verbose_name="N/R")
+    abandoned = tables.Column(verbose_name="A")
     win_percent = FloatColumn(verbose_name="%")
+    match__opposition__name = tables.TemplateColumn(
+        f'<a href="{{% url "fixtures-overview" %}}?opposition={{{{ record.match__opposition_id }}}}">{{{{ value }}}}</a>'
+    )
 
     class Meta:
         attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("match__opposition__name", "played", "won", "loss", "no_result", "draw", "win_percent")
+        fields = (
+            "match__opposition__name",
+            "played",
+            "won",
+            "loss",
+            "abandoned",
+            "draw",
+            "win_percent",
+        )
 
 
 class VenuesTable(tables.Table):
@@ -41,29 +63,25 @@ class VenuesTable(tables.Table):
     won = tables.Column(verbose_name="W")
     draw = tables.Column(verbose_name="D")
     loss = tables.Column(verbose_name="L")
-    no_result = tables.Column(verbose_name="N/R")
+    abandoned = tables.Column(verbose_name="A")
     win_percent = FloatColumn(verbose_name="%")
+    match__venue__name = tables.TemplateColumn(
+        f'<a href="{{% url "fixtures-overview" %}}?venue={{{{ record.match__venue_id }}}}">{{{{ value }}}}</a>'
+    )
 
     class Meta:
         attrs = TABLE_ATTRS
         model = MatchStatistics
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("match__venue__name", "played", "won", "loss", "no_result", "draw", "win_percent")
-
-
-# class FixturesTable(tables.Table):
-#     day = tables.DateColumn(format='D', accessor="date")
-#     date = tables.Column()
-#     opposition = tables.Column()
-#     venue = tables.Column()
-#     mtype = tables.Column(verbose_name="Type", accessor="get_mtype_display")
-#     result = tables.Column(verbose_name="Result", accessor="matchstatistics__get_result_display", linkify=("match-overview", [tables.A("matchstatistics__id")]))
-#
-#     class Meta:
-#         attrs = TABLE_ATTRS
-#         model = Match
-#         template_name = "django_tables2/bootstrap4.html"
-#         fields = ("date", "day", "opposition", "venue", "mtype", "result")
+        fields = (
+            "match__venue__name",
+            "played",
+            "won",
+            "loss",
+            "abandoned",
+            "draw",
+            "win_percent",
+        )
 
 
 class BowlingTable(tables.Table):
@@ -76,11 +94,19 @@ class BowlingTable(tables.Table):
     average = tables.Column(verbose_name="Avg", orderable=False)
     strike_rate = tables.Column(verbose_name="S.R", orderable=False)
 
-
     class Meta:
         attrs = TABLE_ATTRS
         template_name = "django_tables2/bootstrap4.html"
-        fields = ("player", "overs", "maidens", "runs", "wickets", "economy", "average", "strike_rate")
+        fields = (
+            "player",
+            "overs",
+            "maidens",
+            "runs",
+            "wickets",
+            "economy",
+            "average",
+            "strike_rate",
+        )
 
 
 class BattingTable(tables.Table):

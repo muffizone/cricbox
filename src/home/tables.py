@@ -12,7 +12,7 @@ class Scorecard(tables.Table):
 
 
 class HonoursTable(tables.Table):
-    name = tables.Column(linkify=("player-profile", [tables.A("name")]))
+    name = tables.Column(linkify=("player-profile", [tables.A("name_id")]))
     season = tables.Column()
 
     class Meta:
@@ -20,7 +20,7 @@ class HonoursTable(tables.Table):
 
 
 class NotablePerformancesTable(tables.Table):
-    player = tables.Column()
+    player = tables.Column(linkify=("player-profile", [tables.A("player_id")]))
     runs = tables.Column()
     wickets = tables.Column()
     season = tables.Column(accessor="match_statistics__match__season")
@@ -33,15 +33,20 @@ class NotablePerformancesTable(tables.Table):
 
 
 class VeteransTable(tables.Table):
-    full_name = tables.Column(verbose_name="Veteran")
+    first_name = tables.Column(
+        verbose_name="Veteran", linkify=("player-profile", [tables.A("id")])
+    )
     member_since = tables.Column(verbose_name="Since")
+
+    def render_first_name(self, value, record):
+        return f"{value} {record.last_name}"
 
     class Meta:
         attrs = TABLE_ATTRS
 
 
 class BestPlayer(tables.Table):
-    name = tables.Column(linkify=("player-profile", [tables.A("name")]))
+    name = tables.Column(linkify=("player-profile", [tables.A("id")]))
     season = tables.Column()
     total = tables.Column()
 

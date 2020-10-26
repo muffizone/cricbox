@@ -1,23 +1,72 @@
 from django.db import models
-from .choices import PLAYING_ROLES, BATTING_STYLES, BOWLING_STYLES, APPOINTMENT_TYPES
 import datetime
 
 
+class PlayingRole(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "playing_roles"
+
+
+class BattingStyle(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "batting_styles"
+
+
+class BowlingStyle(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "bowling_styles"
+
+
+class AppointmentType(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "appointment_types"
+
+
 class Player(models.Model):
-    full_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=80, null=True)
     member_since = models.DateField("Date Joined", null=True, blank=True)
     email = models.EmailField("Email", null=True, blank=True)
-    playing_role = models.TextField(choices=PLAYING_ROLES, blank=True)
-    batting_style = models.TextField(choices=BATTING_STYLES, blank=True)
-    bowling_style = models.TextField(choices=BOWLING_STYLES, blank=True)
+    playing_role = models.ForeignKey(
+        PlayingRole, on_delete=models.PROTECT, null=True, blank=True
+    )
+    batting_style = models.ForeignKey(
+        BattingStyle, on_delete=models.PROTECT, null=True, blank=True
+    )
+    bowling_style = models.ForeignKey(
+        BowlingStyle, on_delete=models.PROTECT, null=True, blank=True
+    )
     active = models.BooleanField(blank=True, default=True)
 
     class Meta:
-        ordering = ["full_name"]
+        ordering = ["last_name"]
         db_table = "players"
 
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     def __str__(self):
-        return self.full_name
+        return f"{self.first_name} {self.last_name}"
 
 
 class Appointment(models.Model):
@@ -26,10 +75,10 @@ class Appointment(models.Model):
         YEARS.append((year, year))
 
     name = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
-    appointment_type = models.TextField("Appointment Type", choices=APPOINTMENT_TYPES)
+    appointment_type = models.ForeignKey(AppointmentType, on_delete=models.PROTECT)
     season = models.IntegerField(
         "Season", default=datetime.datetime.now().year, choices=YEARS
-        )
+    )
 
     class Meta:
         ordering = ["-season"]

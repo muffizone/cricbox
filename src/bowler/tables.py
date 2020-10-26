@@ -4,22 +4,53 @@ from london_fields.utils import TABLE_ATTRS
 
 
 class BowlersTable(tables.Table):
-    player__full_name = tables.Column(linkify=("player-profile", [tables.A("player__full_name")]))
-    overs = tables.Column(order_by=("overs", "player__full_name"))
-    maidens = tables.Column(order_by=("maidens", "player__full_name"), verbose_name="Md")
-    runs = tables.Column(order_by=("runs", "player__full_name"))
-    total_wickets = tables.Column(order_by=("total_wickets", "player__full_name"), verbose_name="Wkts")
-    average = FloatColumn(order_by=("average", "player__full_name"), verbose_name="Avg")
-    strike_rate = FloatColumn(order_by=("strike_rate", "player__full_name"), verbose_name="SR")
-    economy = FloatColumn(order_by=("economy", "player__full_name"), verbose_name="Eco")
-    matches = tables.Column(order_by=("matches", "player__full_name"), verbose_name="Inn", linkify=("bowling-stats-name", [tables.A("player__full_name")]))
+    player_full_name = tables.Column(
+        linkify=("player-profile", [tables.A("player_id")]),
+        verbose_name="Player",
+    )
+    overs = tables.Column(order_by=("overs", "player_full_name"))
+    maidens = tables.Column(order_by=("maidens", "player_full_name"), verbose_name="Md")
+    runs = tables.Column(order_by=("runs", "player_full_name"))
+    total_wickets = tables.Column(
+        order_by=("total_wickets", "player_full_name"), verbose_name="Wkts"
+    )
+    average = FloatColumn(order_by=("average", "player_full_name"), verbose_name="Avg")
+    strike_rate = FloatColumn(
+        order_by=("strike_rate", "player_full_name"), verbose_name="SR"
+    )
+    economy = FloatColumn(order_by=("economy", "player_full_name"), verbose_name="Eco")
+    matches = tables.Column(
+        order_by=("matches", "player_full_name"),
+        verbose_name="Inn",
+        linkify=("bowling-stats-name", [tables.A("player_id")]),
+    )
     fours = tables.Column(verbose_name="4w")
     fives = tables.Column(verbose_name="5w")
 
     class Meta:
         attrs = TABLE_ATTRS
-        fields = ("matches", "player__full_name", "overs", "maidens", "runs", "total_wickets", "average", "strike_rate", "economy")
-        sequence = ("player__full_name", "matches", "overs", "maidens", "runs", "total_wickets", "average", "strike_rate", "economy")
+        fields = (
+            "matches",
+            "player_full_name",
+            "overs",
+            "maidens",
+            "runs",
+            "total_wickets",
+            "average",
+            "strike_rate",
+            "economy",
+        )
+        sequence = (
+            "player_full_name",
+            "matches",
+            "overs",
+            "maidens",
+            "runs",
+            "total_wickets",
+            "average",
+            "strike_rate",
+            "economy",
+        )
 
 
 class BowlerTable(tables.Table):
@@ -27,15 +58,37 @@ class BowlerTable(tables.Table):
     maidens = SummingColumn()
     overs = SummingColumn()
     wickets = SummingColumn()
-    match = tables.Column(verbose_name="Match",accessor="match_statistics", footer=lambda table: len(table.data))
+    match = tables.Column(
+        verbose_name="Match",
+        accessor="match_statistics",
+        footer=lambda table: len(table.data),
+    )
     economy = tables.Column(orderable=False)
     average = tables.Column(orderable=False)
     strike_rate = tables.Column(orderable=False)
-    match_season = tables.Column(accessor="match_statistics__match__season", verbose_name="Season")
-    match_type = tables.Column(accessor="match_statistics__match__mtype", verbose_name="Type")
-    result = tables.Column(accessor="match_statistics__get_result_display", verbose_name="Result")
+    match_season = tables.Column(
+        accessor="match_statistics__match__season", verbose_name="Season"
+    )
+    match_type = tables.Column(
+        accessor="match_statistics__match__mtype", verbose_name="Type"
+    )
+    result = tables.Column(
+        accessor="match_statistics__get_result_display", verbose_name="Result"
+    )
 
     class Meta:
         attrs = TABLE_ATTRS
-        sequence = ("match_season", "match", "match_type", "overs", "maidens", "runs", "wickets", "economy", "average", "strike_rate", "result")
+        sequence = (
+            "match_season",
+            "match",
+            "match_type",
+            "overs",
+            "maidens",
+            "runs",
+            "wickets",
+            "economy",
+            "average",
+            "strike_rate",
+            "result",
+        )
         exclude = ("player", "id", "match_statistics")
