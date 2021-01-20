@@ -137,13 +137,8 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode/
 *.code-workspace
-settings.json
 
 # Local History for Visual Studio Code
 .history/
@@ -162,3 +157,4 @@ home/templates/.DS_Store
 static/img/lfcc_logo.png
 static/img/lfcc_logo_backup.gif
 static/vendor/
+.python-version
