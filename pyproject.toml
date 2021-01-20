@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "cricbox"
+version = "0.1.0"
+description = "Statistics, analysis and reports for cricket club matches and announcements"
+authors = ["Mufaddal Presswala <muffizone@gmail.com>"]
+maintainers = ["Mufaddal Presswala <muffizone@gmail.com>"]
+readme = "README.rst"
+license = "GPL-3.0-or-later"
+homepage = "https://github.com/muffizone/london_fields"
+repository = "https://github.com/muffizone/london_fields"
+keywords = ["cricket", "django"]
+
+[tool.poetry.url]
+"Bug Tracker" = "https://github.com/muffizone/london_fields/issues"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "3.1.5"
+django-bootstrap4 = "2.3.1"
+django-filter = "2.4.0"
+django-forms-bootstrap = "3.1.0"
+django-tables2 = "2.3.4"
+
+[tool.poetry.dev-dependencies]
+poetry = "^1.1.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

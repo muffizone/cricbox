@@ -162,3 +162,4 @@ home/templates/.DS_Store
 static/img/lfcc_logo.png
 static/img/lfcc_logo_backup.gif
 static/vendor/
+/.python-version
