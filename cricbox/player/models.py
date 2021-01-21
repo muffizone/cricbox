@@ -1,5 +1,6 @@
-from django.db import models
 import datetime
+
+from django.db import models
 
 
 class PlayingRole(models.Model):
@@ -47,15 +48,9 @@ class Player(models.Model):
     last_name = models.CharField(max_length=80, null=True)
     member_since = models.DateField("Date Joined", null=True, blank=True)
     email = models.EmailField("Email", null=True, blank=True)
-    playing_role = models.ForeignKey(
-        PlayingRole, on_delete=models.PROTECT, null=True, blank=True
-    )
-    batting_style = models.ForeignKey(
-        BattingStyle, on_delete=models.PROTECT, null=True, blank=True
-    )
-    bowling_style = models.ForeignKey(
-        BowlingStyle, on_delete=models.PROTECT, null=True, blank=True
-    )
+    playing_role = models.ForeignKey(PlayingRole, on_delete=models.PROTECT, null=True, blank=True)
+    batting_style = models.ForeignKey(BattingStyle, on_delete=models.PROTECT, null=True, blank=True)
+    bowling_style = models.ForeignKey(BowlingStyle, on_delete=models.PROTECT, null=True, blank=True)
     active = models.BooleanField(blank=True, default=True)
 
     class Meta:
@@ -76,9 +71,7 @@ class Appointment(models.Model):
 
     name = models.ForeignKey(Player, on_delete=models.DO_NOTHING)
     appointment_type = models.ForeignKey(AppointmentType, on_delete=models.PROTECT)
-    season = models.IntegerField(
-        "Season", default=datetime.datetime.now().year, choices=YEARS
-    )
+    season = models.IntegerField("Season", default=datetime.datetime.now().year, choices=YEARS)
 
     class Meta:
         ordering = ["-season"]

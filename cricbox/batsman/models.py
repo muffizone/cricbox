@@ -1,19 +1,10 @@
 from django.db import models
-from player.models import Player
+from django.db.models import Count, DecimalField, ExpressionWrapper, F, Max, Q, Sum, Value
+from django.db.models.functions import Concat
+from london_fields.utils import FIFTIES, HUNDREDS
 from match.models import Match
 from match_statistics.models import MatchStatistics
-from django.db.models import (
-    Count,
-    Sum,
-    ExpressionWrapper,
-    F,
-    DecimalField,
-    Max,
-    Q,
-    Value,
-)
-from london_fields.utils import FIFTIES, HUNDREDS
-from django.db.models.functions import Concat
+from player.models import Player
 
 
 class Statistics(models.Manager):
@@ -24,9 +15,7 @@ class Statistics(models.Manager):
             .exclude(player__first_name="Extras")
             .values(
                 "player_id",
-                player_full_name=Concat(
-                    "player__first_name", Value(" "), "player__last_name"
-                ),
+                player_full_name=Concat("player__first_name", Value(" "), "player__last_name"),
             )
             .annotate(
                 innings=Count("match_statistics"),
@@ -72,4 +61,3 @@ class Batsman(models.Model):
 
     def __str__(self):
         return self.player.full_name()
-
