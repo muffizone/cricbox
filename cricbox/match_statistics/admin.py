@@ -1,7 +1,12 @@
-from django.contrib import admin
-from .models import MatchStatistics, Result
+# Cricbox imports
 from batsman.models import Batsman
 from bowler.models import Bowler
+
+from .models import MatchStatistics, Result
+
+# Django imports
+from django.contrib import admin
+
 
 # Register your models here
 class ResultAdmin(admin.ModelAdmin):

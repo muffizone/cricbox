@@ -1,7 +1,10 @@
+# Third-party imports
 import mysql.connector
-from venue.models import Venue
+
+# Cricbox imports
 from opposition.models import Opposition
 from player.models import Player
+from venue.models import Venue
 
 old = mysql.connector.connect(
     user="django",

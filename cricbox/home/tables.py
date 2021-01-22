@@ -1,5 +1,8 @@
-import django_tables2 as tables
+# Cricbox imports
 from london_fields.utils import TABLE_ATTRS
+
+# Django third party apps
+import django_tables2 as tables
 
 
 class Scorecard(tables.Table):
@@ -33,9 +36,7 @@ class NotablePerformancesTable(tables.Table):
 
 
 class VeteransTable(tables.Table):
-    first_name = tables.Column(
-        verbose_name="Veteran", linkify=("player-profile", [tables.A("id")])
-    )
+    first_name = tables.Column(verbose_name="Veteran", linkify=("player-profile", [tables.A("id")]))
     member_since = tables.Column(verbose_name="Since")
 
     def render_first_name(self, value, record):

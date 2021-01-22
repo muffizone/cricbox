@@ -1,6 +1,10 @@
-from django.db import models
-from player.models import Player
+# Cricbox imports
 from match.models import Match
+from player.models import Player
+
+# Django imports
+from django.db import models
+
 
 # Create your models here.
 class NewsItem(models.Model):

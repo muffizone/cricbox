@@ -1,8 +1,13 @@
-from django.db import models
-from venue.models import Venue
+# Standard imports
+import datetime
+
+# Cricbox imports
 from opposition.models import Opposition
 from player.models import Player
-import datetime
+from venue.models import Venue
+
+# Django imports
+from django.db import models
 
 
 # Create your models here.
@@ -41,9 +46,7 @@ class Match(models.Model):
     for year in range(1997, datetime.datetime.now().year + 1):
         YEARS.append((year, year))
 
-    season = models.IntegerField(
-        "Season", default=datetime.datetime.now().year, choices=YEARS
-    )
+    season = models.IntegerField("Season", default=datetime.datetime.now().year, choices=YEARS)
     date = models.DateField("Date")
     mtype = models.ForeignKey(
         MatchType,
@@ -52,13 +55,9 @@ class Match(models.Model):
         blank=True,
         verbose_name="Match Type",
     )
-    home_or_away = models.ForeignKey(
-        HomeAway, verbose_name="Home or Away", null=True, on_delete=models.PROTECT
-    )
+    home_or_away = models.ForeignKey(HomeAway, verbose_name="Home or Away", null=True, on_delete=models.PROTECT)
     remarks = models.CharField("Remarks", null=True, max_length=200)
-    opposition = models.ForeignKey(
-        Opposition, on_delete=models.PROTECT, blank=True, null=True
-    )
+    opposition = models.ForeignKey(Opposition, on_delete=models.PROTECT, blank=True, null=True)
     venue = models.ForeignKey(Venue, on_delete=models.PROTECT, blank=True, null=True)
     players = models.ManyToManyField(Player, blank=True, through="PlayerMatchAttribute")
 
@@ -74,9 +73,7 @@ class Match(models.Model):
 class PlayerMatchAttribute(models.Model):
     player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)
     match = models.ForeignKey(Match, on_delete=models.SET_NULL, null=True)
-    skill = models.ForeignKey(
-        PlayerSkill, null=True, verbose_name="Skill Set", on_delete=models.PROTECT
-    )
+    skill = models.ForeignKey(PlayerSkill, null=True, verbose_name="Skill Set", on_delete=models.PROTECT)
     captain = models.BooleanField("Captain", default=False, null=True)
 
     class Meta:

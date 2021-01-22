@@ -1,12 +1,14 @@
-from django.contrib import admin
 from .models import (
-    Player,
     Appointment,
-    PlayingRole,
+    AppointmentType,
     BattingStyle,
     BowlingStyle,
-    AppointmentType,
+    Player,
+    PlayingRole,
 )
+
+# Django imports
+from django.contrib import admin
 
 
 # Register your models here.

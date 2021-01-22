@@ -1,33 +1,36 @@
-from player.models import (
-    Player,
-    Appointment,
-    AppointmentType,
-    BowlingStyle,
-    BattingStyle,
-    PlayingRole,
-)
-from bowler.models import Bowler
-from random import randint
-from batsman.models import Batsman, WicketType
-from match.models import Match, HomeAway, MatchType, PlayerSkill
-from match_statistics.models import MatchStatistics, Result
-from opposition.models import Opposition
-from venue.models import Venue
-from .choices import (
-    PLAYING_ROLES,
-    BATTING_STYLES,
-    BOWLING_STYLES,
-    APPOINTMENT_TYPES,
-    WICKET_TYPES,
-    MATCH_TYPE,
-    HOME_AWAY,
-    PLAYER_SKILLS,
-    RESULT,
-    EVENT_FIRST,
-)
-
+# Standard imports
 import datetime
 import random
+from random import randint
+
+# Cricbox imports
+from batsman.models import Batsman, WicketType
+from bowler.models import Bowler
+from match.models import HomeAway, Match, MatchType, PlayerSkill
+from match_statistics.models import MatchStatistics, Result
+from opposition.models import Opposition
+from player.models import (
+    Appointment,
+    AppointmentType,
+    BattingStyle,
+    BowlingStyle,
+    Player,
+    PlayingRole,
+)
+from venue.models import Venue
+
+from .choices import (
+    APPOINTMENT_TYPES,
+    BATTING_STYLES,
+    BOWLING_STYLES,
+    EVENT_FIRST,
+    HOME_AWAY,
+    MATCH_TYPE,
+    PLAYER_SKILLS,
+    PLAYING_ROLES,
+    RESULT,
+    WICKET_TYPES,
+)
 
 start_date = datetime.date(1997, 1, 1)
 

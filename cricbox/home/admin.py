@@ -1,5 +1,9 @@
+# Cricbox imports
+from home.models import NewsItem, Picture, Podcast
+
+# Django imports
 from django.contrib import admin
-from home.models import NewsItem, Podcast, Picture
+
 
 # Register your models here.
 class NewsAdmin(admin.ModelAdmin):

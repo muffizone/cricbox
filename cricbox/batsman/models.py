@@ -1,10 +1,22 @@
-from django.db import models
-from django.db.models import Count, DecimalField, ExpressionWrapper, F, Max, Q, Sum, Value
-from django.db.models.functions import Concat
+# Cricbox imports
 from london_fields.utils import FIFTIES, HUNDREDS
 from match.models import Match
 from match_statistics.models import MatchStatistics
 from player.models import Player
+
+# Django imports
+from django.db import models
+from django.db.models import (
+    Count,
+    DecimalField,
+    ExpressionWrapper,
+    F,
+    Max,
+    Q,
+    Sum,
+    Value,
+)
+from django.db.models.functions import Concat
 
 
 class Statistics(models.Manager):

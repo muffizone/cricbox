@@ -1,5 +1,17 @@
+from .views import (
+    PerformersView,
+    PositionsView,
+    about,
+    handbook,
+    history,
+    home,
+    links,
+    match_manager,
+    stats,
+)
+
+# Django imports
 from django.urls import path
-from .views import home, about, history, links, handbook, match_manager, stats, PositionsView, PerformersView
 
 urlpatterns = [
     path("", home, name="site-home"),
@@ -10,5 +22,5 @@ urlpatterns = [
     path("honours/performers", PerformersView.as_view(), name="site-performers"),
     path("handbook/", handbook, name="site-handbook"),
     path("match-manager/", match_manager, name="site-match_manager"),
-    path("stats/", stats, name="site-stats")
+    path("stats/", stats, name="site-stats"),
 ]

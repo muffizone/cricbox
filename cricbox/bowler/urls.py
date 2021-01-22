@@ -1,6 +1,7 @@
-from django.urls import path
+from .views import BowlersView, BowlerView
 
-from .views import BowlerView, BowlersView
+# Django imports
+from django.urls import path
 
 urlpatterns = [
     # ex: /bowling/

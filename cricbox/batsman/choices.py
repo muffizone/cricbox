@@ -17,4 +17,3 @@ WICKET_TYPES = (
     ("TO", "TIMED OUT"),
     ("U", "UNKNOWN"),
 )
-

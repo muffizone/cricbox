@@ -1,9 +1,15 @@
-import django_tables2 as tables
-from .models import MatchStatistics
+# Cricbox imports
 from london_fields.tables import FloatColumn, SummingColumn
 from london_fields.utils import TABLE_ATTRS
-from django.db.models import F, ExpressionWrapper, DecimalField
 from match.models import Match
+
+from .models import MatchStatistics
+
+# Django imports
+from django.db.models import DecimalField, ExpressionWrapper, F
+
+# Django third party apps
+import django_tables2 as tables
 
 
 class SeasonTable(tables.Table):

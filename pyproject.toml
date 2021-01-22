@@ -26,6 +26,43 @@ pytest = "^6.2.1"
 black = "^20.8b1"
 flake8 = "^3.8.4"
 
+[tool.isort]
+profile = 'black'
+skip_gitignore = true
+sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER', "DJANGO", "DJANGO_APPS"]
+known_django = ["django"]
+known_django_apps = ["django_tables2", "django_filters"]
+known_first_party = ["bowler", "batsman", "match", "match_statistics", "london_fields", "home", "opposition", "player", "venue"]
+import_heading_stdlib = "Standard imports"
+import_heading_django = "Django imports"
+import_heading_django_apps = "Django third party apps"
+import_heading_firstparty = "Cricbox imports"
+import_heading_thirdparty = "Third-party imports"
+skip_glob= "**/migrations/*"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 119
+target-version = ['py38']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | .vscode
+    | .history
+  )
+)
+'''

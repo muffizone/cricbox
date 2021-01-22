@@ -1,12 +1,19 @@
+# Cricbox imports
+from london_fields.utils import INVALID_PLAYERS_MATCH
+
 from .models import Match
 from .tables import AppearancesTable, FixturesTable
+
+# Django imports
+from django.db.models import Count
+from django.db.models import Value as V
+from django.db.models.functions import Concat
+
+# Django third party apps
 import django_filters
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
-from django.db.models import Count
-from django.db.models.functions import Concat
-from django.db.models import Value as V
-from london_fields.utils import INVALID_PLAYERS_MATCH
+
 
 # Create your views here.
 class AppearancesFilter(django_filters.FilterSet):
@@ -58,9 +65,7 @@ class AppearancesView(SingleTableMixin, FilterView):
         return (
             Match.objects.values(
                 "players__id",
-                players__full_name=Concat(
-                    "players__first_name", V(" "), "players__last_name"
-                ),
+                players__full_name=Concat("players__first_name", V(" "), "players__last_name"),
             )
             .annotate(appearances=Count("players__id"))
             .exclude(INVALID_PLAYERS_MATCH)

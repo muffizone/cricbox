@@ -1,6 +1,9 @@
-import django_tables2 as tables
+# Cricbox imports
 from london_fields.tables import FloatColumn, SummingColumn
 from london_fields.utils import TABLE_ATTRS
+
+# Django third party apps
+import django_tables2 as tables
 
 
 class BowlersTable(tables.Table):
@@ -11,13 +14,9 @@ class BowlersTable(tables.Table):
     overs = tables.Column(order_by=("overs", "player_full_name"))
     maidens = tables.Column(order_by=("maidens", "player_full_name"), verbose_name="Md")
     runs = tables.Column(order_by=("runs", "player_full_name"))
-    total_wickets = tables.Column(
-        order_by=("total_wickets", "player_full_name"), verbose_name="Wkts"
-    )
+    total_wickets = tables.Column(order_by=("total_wickets", "player_full_name"), verbose_name="Wkts")
     average = FloatColumn(order_by=("average", "player_full_name"), verbose_name="Avg")
-    strike_rate = FloatColumn(
-        order_by=("strike_rate", "player_full_name"), verbose_name="SR"
-    )
+    strike_rate = FloatColumn(order_by=("strike_rate", "player_full_name"), verbose_name="SR")
     economy = FloatColumn(order_by=("economy", "player_full_name"), verbose_name="Eco")
     matches = tables.Column(
         order_by=("matches", "player_full_name"),
@@ -66,15 +65,9 @@ class BowlerTable(tables.Table):
     economy = tables.Column(orderable=False)
     average = tables.Column(orderable=False)
     strike_rate = tables.Column(orderable=False)
-    match_season = tables.Column(
-        accessor="match_statistics__match__season", verbose_name="Season"
-    )
-    match_type = tables.Column(
-        accessor="match_statistics__match__mtype", verbose_name="Type"
-    )
-    result = tables.Column(
-        accessor="match_statistics__get_result_display", verbose_name="Result"
-    )
+    match_season = tables.Column(accessor="match_statistics__match__season", verbose_name="Season")
+    match_type = tables.Column(accessor="match_statistics__match__mtype", verbose_name="Type")
+    result = tables.Column(accessor="match_statistics__get_result_display", verbose_name="Result")
 
     class Meta:
         attrs = TABLE_ATTRS

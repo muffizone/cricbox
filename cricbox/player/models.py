@@ -1,5 +1,7 @@
+# Standard imports
 import datetime
 
+# Django imports
 from django.db import models
 
 

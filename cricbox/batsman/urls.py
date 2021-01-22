@@ -1,6 +1,7 @@
-from django.urls import path
-
 from .views import BatsmanView, BatsmenView
+
+# Django imports
+from django.urls import path
 
 urlpatterns = [
     # ex: /batting/

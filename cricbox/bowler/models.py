@@ -1,8 +1,11 @@
-from django.db import models
-from player.models import Player
-from match_statistics.models import MatchStatistics
+# Cricbox imports
 from match.models import Match
-from django.db.models import Count, Sum, ExpressionWrapper, F, DecimalField, Q, Value
+from match_statistics.models import MatchStatistics
+from player.models import Player
+
+# Django imports
+from django.db import models
+from django.db.models import Count, DecimalField, ExpressionWrapper, F, Q, Sum, Value
 from django.db.models.functions import Concat
 
 

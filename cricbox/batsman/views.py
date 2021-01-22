@@ -1,10 +1,15 @@
+# Cricbox imports
+from london_fields.filters import MatchFilter
+from player.models import Player
+
 from .models import Batsman
-from .tables import BatsmenTable, BatsmanTable
+from .tables import BatsmanTable, BatsmenTable
+
+# Django third party apps
 import django_filters
 from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
-from london_fields.filters import MatchFilter
-from player.models import Player
+
 
 # filters
 class BatsmanFilter(django_filters.FilterSet):

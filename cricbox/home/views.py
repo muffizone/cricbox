@@ -1,19 +1,27 @@
-from django.shortcuts import render
-from .tables import (
-    Scorecard,
-    HonoursTable,
-    NotablePerformancesTable,
-    VeteransTable,
-    BestPlayer,
-)
-from london_fields.utils import SITE_URLS, FIFTIES, HUNDREDS, FIVERS
-from django_tables2.views import MultiTableMixin
-from django.views.generic import TemplateView
-from player.models import Appointment
+# Standard imports
+import datetime
+
+# Cricbox imports
 from batsman.models import Batsman
 from bowler.models import Bowler
-from player.models import Player
-import datetime
+from london_fields.utils import FIFTIES, FIVERS, HUNDREDS, SITE_URLS
+from player.models import Appointment, Player
+
+from .tables import (
+    BestPlayer,
+    HonoursTable,
+    NotablePerformancesTable,
+    Scorecard,
+    VeteransTable,
+)
+
+# Django imports
+from django.shortcuts import render
+from django.views.generic import TemplateView
+
+# Django third party apps
+from django_tables2.views import MultiTableMixin
+
 
 # Create your views here.
 def home(request):
@@ -121,40 +129,18 @@ class PositionsView(MultiTableMixin, TemplateView):
 
     def get_tables(self):
         return [
+            HonoursTable(Appointment.objects.filter(appointment_type__name="Captain").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type__name="Vice Captain").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type__name="MidWeek Captain").order_by("-season")),
+            HonoursTable(Appointment.objects.filter(appointment_type__name="Fixturer").order_by("-season")),
             HonoursTable(
-                Appointment.objects.filter(appointment_type__name="Captain").order_by(
-                    "-season"
-                )
+                Appointment.objects.filter(appointment_type__name="Domestic Tour Secretary").order_by("-season")
             ),
             HonoursTable(
-                Appointment.objects.filter(
-                    appointment_type__name="Vice Captain"
-                ).order_by("-season")
-            ),
-            HonoursTable(
-                Appointment.objects.filter(
-                    appointment_type__name="MidWeek Captain"
-                ).order_by("-season")
-            ),
-            HonoursTable(
-                Appointment.objects.filter(appointment_type__name="Fixturer").order_by(
-                    "-season"
-                )
-            ),
-            HonoursTable(
-                Appointment.objects.filter(
-                    appointment_type__name="Domestic Tour Secretary"
-                ).order_by("-season")
-            ),
-            HonoursTable(
-                Appointment.objects.filter(
-                    appointment_type__name="International Tour Secretary"
-                ).order_by("-season")
+                Appointment.objects.filter(appointment_type__name="International Tour Secretary").order_by("-season")
             ),
             VeteransTable(
-                Player.objects.filter(
-                    member_since__year=datetime.datetime.now().year - 10
-                ),
+                Player.objects.filter(member_since__year=datetime.datetime.now().year - 10),
                 order_by="-member_since__year",
             ),
         ]
@@ -204,21 +190,15 @@ class PerformersView(MultiTableMixin, TemplateView):
     def get_tables(self):
         return [
             NotablePerformancesTable(
-                Batsman.objects.filter(FIFTIES).order_by(
-                    "-match_statistics__match__season"
-                ),
+                Batsman.objects.filter(FIFTIES).order_by("-match_statistics__match__season"),
                 exclude="wickets",
             ),
             NotablePerformancesTable(
-                Batsman.objects.filter(HUNDREDS).order_by(
-                    "-match_statistics__match__season"
-                ),
+                Batsman.objects.filter(HUNDREDS).order_by("-match_statistics__match__season"),
                 exclude="wickets",
             ),
             NotablePerformancesTable(
-                Bowler.objects.filter(FIVERS).order_by(
-                    "-match_statistics__match__season"
-                ),
+                Bowler.objects.filter(FIVERS).order_by("-match_statistics__match__season"),
                 exclude="runs",
             ),
             BestPlayer(Batsman.objects.raw(self.best_batsman_query)),
