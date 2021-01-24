@@ -15,7 +15,7 @@ INVALID_PLAYERS_MATCH = Q(
 TABLE_ATTRS = {"class": "table table-hover", "thead": {"class": "thead-light"}}
 
 SITE_URLS = {
-    "LONDON_FIELDS_MAP_URL": "https://goo.gl/maps/yt1rZmEDyGAVCSWs7",
+    "LONDON_FIELDS_MAP_URL": "https://osm.org/go/euu6cZFC?layers=N&way=4406359",
     "VPCCL_LEAGUE_TABLES_URL": "http://www.vpccl.co.uk/fixtures+results/2012/teams/londonfields.html",
     "VPCCL_URL": "http://www.vpccl.co.uk",
     "NELCL_URL": "http://www.nelcl.com/",
