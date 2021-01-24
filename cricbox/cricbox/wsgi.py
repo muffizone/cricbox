@@ -1,5 +1,5 @@
 """
-WSGI config for london_fields project.
+WSGI config for cricbox project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -13,6 +13,6 @@ import os
 # Django imports
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "london_fields.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cricbox.settings")
 
 application = get_wsgi_application()

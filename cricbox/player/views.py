@@ -3,7 +3,7 @@ from batsman.models import Batsman
 from batsman.tables import BatsmenTable
 from bowler.models import Bowler
 from bowler.tables import BowlersTable
-from london_fields.utils import INVALID_PLAYERS
+from cricbox.utils import INVALID_PLAYERS
 from match.models import Match
 
 from .models import Player

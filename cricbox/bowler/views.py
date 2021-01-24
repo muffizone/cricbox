@@ -1,5 +1,5 @@
 # Cricbox imports
-from london_fields.filters import MatchFilter
+from cricbox.filters import MatchFilter
 from player.models import Player
 
 from .models import Bowler
@@ -35,7 +35,12 @@ class BowlersFilter(MatchFilter):
         fields = {
             "match_statistics__match__season": ["exact"],
             "match_statistics__match__mtype": ["exact"],
+            "player__first_name": ["icontains"],
         }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.filters["player__first_name__icontains"].label = "Player"
 
 
 class BowlersView(SingleTableMixin, FilterView):

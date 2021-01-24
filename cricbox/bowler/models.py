@@ -1,5 +1,4 @@
 # Cricbox imports
-from match.models import Match
 from match_statistics.models import MatchStatistics
 from player.models import Player
 

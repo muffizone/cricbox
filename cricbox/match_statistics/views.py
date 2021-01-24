@@ -1,6 +1,3 @@
-# Cricbox imports
-from match.views import FixturesFilter
-
 from .models import MatchStatistics
 from .tables import (
     BattingTable,
@@ -12,7 +9,6 @@ from .tables import (
 
 # Django imports
 from django.db.models import Count, DecimalField, ExpressionWrapper, F, FloatField, Q
-from django.shortcuts import render
 from django.views.generic.base import TemplateView
 
 # Django third party apps

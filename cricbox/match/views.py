@@ -1,5 +1,5 @@
 # Cricbox imports
-from london_fields.utils import INVALID_PLAYERS_MATCH
+from cricbox.utils import INVALID_PLAYERS_MATCH
 
 from .models import Match
 from .tables import AppearancesTable, FixturesTable
@@ -25,6 +25,7 @@ class AppearancesFilter(django_filters.FilterSet):
             "home_or_away": ["exact"],
             "opposition": ["exact"],
             "venue": ["exact"],
+            "players__first_name": ["icontains"]
         }
 
     def __init__(self, **kwargs):
@@ -34,6 +35,7 @@ class AppearancesFilter(django_filters.FilterSet):
         self.filters["home_or_away"].label = "Home/Away"
         self.filters["opposition"].label = "Opposition"
         self.filters["venue"].label = "Venue"
+        self.filters["players__first_name__icontains"].label = "Player"
 
 
 class FixturesFilter(django_filters.FilterSet):

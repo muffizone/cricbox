@@ -143,9 +143,6 @@ cython_debug/
 # Local History for Visual Studio Code
 .history/
 
-# Remove all django migrations file
-**/migrations/**
-
 .idea
 .DS_Store
 home/.DS_Store

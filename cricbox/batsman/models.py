@@ -1,6 +1,5 @@
 # Cricbox imports
-from london_fields.utils import FIFTIES, HUNDREDS
-from match.models import Match
+from cricbox.utils import FIFTIES, HUNDREDS
 from match_statistics.models import MatchStatistics
 from player.models import Player
 

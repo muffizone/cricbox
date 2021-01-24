@@ -32,7 +32,7 @@ skip_gitignore = true
 sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER', "DJANGO", "DJANGO_APPS"]
 known_django = ["django"]
 known_django_apps = ["django_tables2", "django_filters"]
-known_first_party = ["bowler", "batsman", "match", "match_statistics", "london_fields", "home", "opposition", "player", "venue"]
+known_first_party = ["bowler", "batsman", "match", "match_statistics", "cricbox", "home", "opposition", "player", "venue"]
 import_heading_stdlib = "Standard imports"
 import_heading_django = "Django imports"
 import_heading_django_apps = "Django third party apps"
@@ -63,6 +63,7 @@ exclude = '''
     | dist
     | .vscode
     | .history
+    | **/migrations
   )
 )
 '''

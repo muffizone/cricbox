@@ -4,7 +4,7 @@ import datetime
 # Cricbox imports
 from batsman.models import Batsman
 from bowler.models import Bowler
-from london_fields.utils import FIFTIES, FIVERS, HUNDREDS, SITE_URLS
+from cricbox.utils import FIFTIES, FIVERS, HUNDREDS, SITE_URLS
 from player.models import Appointment, Player
 
 from .tables import (
@@ -151,40 +151,27 @@ class PerformersView(MultiTableMixin, TemplateView):
     table_pagination = {"per_page": 50}
 
     best_batsman_query = """
-    SELECT id, name, season, total 
-    FROM (
-            SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_runs_season
-            FROM
-                (
-                    SELECT players.id, concat(players.first_name, ' ', players.last_name) as name, matches.season, SUM(batsmen.runs) as total
-                    FROM batsmen
-                    JOIN matches_statistics ON (batsmen.match_statistics_id = matches_statistics.id)
-                    JOIN matches ON (matches_statistics.match_id = matches.id)
-                    JOIN players ON (batsmen.player_id = players.id)
-                    WHERE players.first_name!='Extras'
-                    GROUP BY 1,2,3
-                ) AS all_seasons
-        ) all_seasons_max
-    WHERE max_runs_season
-    ORDER BY season DESC;
+        SELECT id, name, batsmen_all_seasons.season, total
+        FROM (
+                SELECT season, max(total) as max_total
+                FROM batsmen_all_seasons
+                GROUP BY season
+            ) AS max_per_season
+            inner join batsmen_all_seasons
+                ON batsmen_all_seasons.season = max_per_season.season AND max_per_season.max_total = batsmen_all_seasons.total
+        ORDER BY batsmen_all_seasons.season DESC;
     """
 
     best_bowler_query = """
-    SELECT id, name, season, total 
-    FROM (
-            SELECT id, name, season, total, ROW_NUMBER() OVER (PARTITION BY season ORDER BY total DESC)=1 as max_wickets_season
-            FROM
-                (
-                    SELECT players.id , concat(players.first_name, ' ', players.last_name) as name, matches.season, SUM(bowlers.wickets) as total
-                    FROM bowlers
-                    JOIN matches_statistics ON (bowlers.match_statistics_id = matches_statistics.id)
-                    JOIN matches ON (matches_statistics.match_id = matches.id)
-                    JOIN players ON (bowlers.player_id = players.id)
-                    GROUP BY 1,2,3
-                ) AS all_seasons
-        ) all_seasons_max
-    WHERE max_wickets_season
-    ORDER BY season DESC;
+        SELECT id, name, bowler_all_seasons.season, total
+        FROM (
+                SELECT season, max(total) as max_total
+                FROM bowler_all_seasons
+                GROUP BY season
+            ) AS max_per_season
+            inner join bowler_all_seasons
+                ON bowler_all_seasons.season = max_per_season.season and max_per_season.max_total = bowler_all_seasons.total
+        ORDER BY bowler_all_seasons.season DESC;
     """
 
     def get_tables(self):
