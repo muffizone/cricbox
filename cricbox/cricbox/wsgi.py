@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/3.1/howto/deployment/wsgi/
 
 # Standard imports
 import os
+import sys
+
 
 # Django imports
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cricbox.settings")
-
+sys.path.append(os.environ["DJANGO_CRICBOX_PATH"])
 application = get_wsgi_application()

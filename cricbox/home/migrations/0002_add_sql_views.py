@@ -7,7 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('home', '__first__'),
+        ('home', '0001_initial'),
         ('match_statistics', '__first__'),
         ('batsman', '__first__'),
         ('bowler', '__first__'),
