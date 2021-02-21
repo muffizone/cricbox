@@ -42,7 +42,7 @@ class Statistics(models.Manager):
 
 class Bowler(models.Model):
     player = models.ForeignKey(Player, on_delete=models.PROTECT)
-    overs = models.PositiveIntegerField("Overs", default=0)
+    overs = models.DecimalField("Overs", max_digits=3, decimal_places=1, default=0)
     maidens = models.PositiveIntegerField("Maidens", blank=True, default=0)
     runs = models.PositiveIntegerField("Runs", default=0)
     wickets = models.PositiveIntegerField("Wickets", default=0)

@@ -9,7 +9,7 @@
             <h5>{{ match_stats.report_headline }}</h5>
             <p>{{ match_stats.report_byline}}</p>
             <p>{{ match_stats.report_author}}</p>
-            <p>{{ match_stats.report | safe }}</p>
+            <p>{{ match_stats.report | safe | linebreaks }}</p>
             {% if match_stats.london_fields_first_event == 'BOW' %}
                 {% if match_stats.opposition_score != 0 %}
                 <b> {{ match_stats.match.opposition }} CC Batting</b> 
