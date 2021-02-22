@@ -18,6 +18,7 @@ class FixturesTable(tables.Table):
     day = tables.DateColumn(format="D", accessor="date")
     date = tables.Column()
     opposition = tables.Column()
+    home_or_away = tables.Column()
     venue = tables.Column()
     mtype = tables.Column(verbose_name="Type")
     result = tables.Column(
@@ -28,4 +29,4 @@ class FixturesTable(tables.Table):
 
     class Meta:
         attrs = TABLE_ATTRS
-        fields = ("date", "day", "opposition", "venue", "mtype", "result")
+        fields = ("date", "day", "opposition", "home_or_away", "venue", "mtype", "result")

@@ -56,7 +56,7 @@ class Match(models.Model):
         verbose_name="Match Type",
     )
     home_or_away = models.ForeignKey(HomeAway, verbose_name="Home or Away", null=True, on_delete=models.PROTECT)
-    remarks = models.CharField("Remarks", null=True, max_length=200)
+    remarks = models.CharField("Remarks", blank=True, max_length=200, default="")
     opposition = models.ForeignKey(Opposition, on_delete=models.PROTECT, blank=True, null=True)
     venue = models.ForeignKey(Venue, on_delete=models.PROTECT, blank=True, null=True)
     players = models.ManyToManyField(Player, blank=True, through="PlayerMatchAttribute")
