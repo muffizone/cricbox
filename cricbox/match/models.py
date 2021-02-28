@@ -69,6 +69,9 @@ class Match(models.Model):
     def __str__(self):
         return f"London Fields vs {self.opposition} at {self.venue}, {self.date.strftime('%d %b, %Y')}"
 
+    def get_absolute_url(self):
+        return f"/season/match/{self.id}"
+
 
 class PlayerMatchAttribute(models.Model):
     player = models.ForeignKey(Player, on_delete=models.SET_NULL, null=True)

@@ -25,7 +25,7 @@ class AppearancesFilter(django_filters.FilterSet):
             "home_or_away": ["exact"],
             "opposition": ["exact"],
             "venue": ["exact"],
-            "players__first_name": ["icontains"]
+            "players__first_name": ["icontains"],
         }
 
     def __init__(self, **kwargs):

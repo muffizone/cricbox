@@ -36,7 +36,7 @@ class BatsmenFilter(MatchFilter):
         fields = {
             "match_statistics__match__season": ["exact"],
             "match_statistics__match__mtype": ["exact"],
-            "player__first_name": ["icontains"]
+            "player__first_name": ["icontains"],
         }
 
     def __init__(self, **kwargs):

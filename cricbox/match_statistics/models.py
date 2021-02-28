@@ -38,7 +38,6 @@ class MatchStatistics(models.Model):
     def get_batsman(self):
         return self.batsman_set.get_queryset()
 
-
     class Meta:
         ordering = ("match",)
         db_table = "matches_statistics"

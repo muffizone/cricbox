@@ -14,6 +14,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+# Third-party imports
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -27,26 +31,26 @@ SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 # Logging
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
         },
     },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO',
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
     },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': False,
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": True,
         },
     },
 }
@@ -72,6 +76,8 @@ INSTALLED_APPS = [
     "django_filters",
     "django_forms_bootstrap",
     "bootstrap4",
+    "django.contrib.sitemaps",
+    "django.contrib.sites",
 ]
 
 MIDDLEWARE = [
@@ -85,6 +91,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "cricbox.urls"
+
+SITE_ID = 1
 
 TEMPLATES = [
     {
@@ -165,3 +173,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4.html"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+SESSION_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = True
+
+
+sentry_sdk.init(
+    dsn=os.environ["DJANGO_SENTRY_URL"],
+    integrations=[DjangoIntegration()],
+    traces_sample_rate=0.5,
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+)

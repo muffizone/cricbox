@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from .sitemaps import StaticViewSitemap
+
 # Django imports
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
 urlpatterns = [
@@ -25,4 +28,10 @@ urlpatterns = [
     path("batting/", include("batsman.urls")),
     path("match/", include("match.urls")),
     path("season/", include("match_statistics.urls")),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": {"static": StaticViewSitemap}},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ]

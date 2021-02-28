@@ -28,4 +28,5 @@ export DJANGO_DB_DATABASE=<db-username>
 export DJANGO_DB_HOSTNAME=<db-host>
 export DJANGO_DB_USERNAME=<db-username>
 export DJANGO_DB_PASSWORD=<db-password>
+export DJANGO_SENTRY_URL=<sentry-url>
 ```
