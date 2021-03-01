@@ -15,7 +15,6 @@ class AppearancesTable(tables.Table):
 
 
 class FixturesTable(tables.Table):
-    day = tables.DateColumn(format="D", accessor="date")
     date = tables.Column()
     opposition = tables.Column()
     home_or_away = tables.Column()
@@ -29,4 +28,4 @@ class FixturesTable(tables.Table):
 
     class Meta:
         attrs = TABLE_ATTRS
-        fields = ("date", "day", "opposition", "home_or_away", "venue", "mtype", "result")
+        fields = ("date", "opposition", "home_or_away", "venue", "mtype", "result")
