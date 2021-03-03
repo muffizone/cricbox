@@ -1,4 +1,5 @@
 from .views import (
+    DocumentView,
     PerformersView,
     PositionsView,
     about,
@@ -23,4 +24,5 @@ urlpatterns = [
     path("handbook/", handbook, name="site-handbook"),
     path("match-manager/", match_manager, name="site-match_manager"),
     path("stats/", stats, name="site-stats"),
+    path("documents/", DocumentView.as_view(), name="site-documents"),
 ]

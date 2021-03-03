@@ -187,3 +187,6 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
 )
+
+MEDIA_ROOT = f"{os.environ['DJANGO_CRICBOX_PATH']}cricbox/media/"
+MEDIA_URL = "/media/"

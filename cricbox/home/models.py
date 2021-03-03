@@ -46,3 +46,15 @@ class Picture(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ClubDocument(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=200)
+    document = models.FileField(upload_to="uploads/%Y/%m/%d/")
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name

@@ -1,5 +1,9 @@
 # Cricbox imports
+from cricbox.settings import MEDIA_URL
 from cricbox.utils import TABLE_ATTRS
+
+# Django imports
+from django.utils.html import format_html
 
 # Django third party apps
 import django_tables2 as tables
@@ -50,6 +54,15 @@ class BestPlayer(tables.Table):
     name = tables.Column(linkify=("player-profile", [tables.A("id")]))
     season = tables.Column()
     total = tables.Column()
+
+    class Meta:
+        attrs = TABLE_ATTRS
+
+
+class ClubDocs(tables.Table):
+    name = tables.Column()
+    description = tables.Column()
+    document = tables.FileColumn()
 
     class Meta:
         attrs = TABLE_ATTRS

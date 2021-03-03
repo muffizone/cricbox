@@ -7,8 +7,10 @@ from bowler.models import Bowler
 from cricbox.utils import FIFTIES, FIVERS, HUNDREDS, SITE_URLS
 from player.models import Appointment, Player
 
+from .models import ClubDocument
 from .tables import (
     BestPlayer,
+    ClubDocs,
     HonoursTable,
     NotablePerformancesTable,
     Scorecard,
@@ -20,7 +22,9 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 # Django third party apps
-from django_tables2.views import MultiTableMixin
+import django_filters
+from django_filters.views import FilterView
+from django_tables2.views import MultiTableMixin, SingleTableMixin
 
 
 # Create your views here.
@@ -199,3 +203,24 @@ def handbook(request):
 
 def match_manager(request):
     return render(request, "home/match_manager.html")
+
+
+class DocFilter(django_filters.FilterSet):
+    class Meta:
+        model = ClubDocument
+        fields = {
+            "name": ["icontains"],
+        }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.filters["name__icontains"].label = "Name"
+
+
+class DocumentView(SingleTableMixin, FilterView):
+    table_class = ClubDocs
+    filterset_class = DocFilter
+    template_name = "home/club_documents.html"
+
+    def get_queryset(self):
+        return ClubDocument.objects.all()
