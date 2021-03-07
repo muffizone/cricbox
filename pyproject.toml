@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cricbox"
-version = "0.1.0"
+version = "0.1.1"
 description = "Django project for cricket match statistics, reports, player, venue and opposition"
 authors = ["mufaddal <muffizone@gmail.com>"]
 maintainers = ["mufaddal <muffizone@gmail.com>"]
