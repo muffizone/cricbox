@@ -26,6 +26,7 @@ sentry-sdk = "^0.20.3"
 pytest = "^6.2.1"
 black = "^20.8b1"
 flake8 = "^3.8.4"
+tbump = "^6.3.1"
 
 [tool.isort]
 profile = 'black'
