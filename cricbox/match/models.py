@@ -62,7 +62,7 @@ class Match(models.Model):
     players = models.ManyToManyField(Player, blank=True, through="PlayerMatchAttribute")
 
     class Meta:
-        ordering = ["-date"]
+        ordering = ["-season", "date"]
         verbose_name_plural = "matches"
         db_table = "matches"
 
