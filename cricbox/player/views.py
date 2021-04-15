@@ -13,13 +13,29 @@ from .tables import PlayersTable
 from django.views.generic import TemplateView
 
 # Django third party apps
+import django_filters
+from django_filters.views import FilterView
 from django_tables2.views import SingleTableMixin
 
 
 # Create your views here.
-class PlayersView(SingleTableMixin, TemplateView):
+
+class PlayersFilter(django_filters.FilterSet):
+    class Meta:
+        model = Player
+        fields = {
+            "first_name": ["icontains"],
+        }
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.filters["first_name__icontains"].label = "Player"
+
+
+class PlayersView(SingleTableMixin, FilterView):
     template_name = "player/player.html"
     table_class = PlayersTable
+    filterset_class = PlayersFilter
     table_pagination = {"per_page": 50}
 
     def get_queryset(self):
