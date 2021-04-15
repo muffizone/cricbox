@@ -20,7 +20,7 @@ django-forms-bootstrap = "^3.1.0"
 mysql-connector-python = "^8.0.23"
 mysqlclient = "^2.0.3"
 django-bootstrap4 = "^2.3.1"
-sentry-sdk = "^0.20.3"
+sentry-sdk = "^1.0.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.1"
