@@ -41,6 +41,7 @@ class Statistics(models.Manager):
 
 
 class Bowler(models.Model):
+    number = models.PositiveSmallIntegerField("Bowler Number", blank=True, default=0)
     player = models.ForeignKey(Player, on_delete=models.PROTECT)
     overs = models.DecimalField("Overs", max_digits=3, decimal_places=1, default=0)
     maidens = models.PositiveIntegerField("Maidens", blank=True, default=0)
