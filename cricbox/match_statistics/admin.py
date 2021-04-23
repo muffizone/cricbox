@@ -15,12 +15,12 @@ class ResultAdmin(admin.ModelAdmin):
 
 class BatsmanAdmin(admin.TabularInline):
     model = Batsman
-    autocomplete_fields = ("player")
+    autocomplete_fields = ["player"]
 
 
 class BowlerAdmin(admin.TabularInline):
     model = Bowler
-    autocomplete_fields = ("player")
+    autocomplete_fields = ["player"]
 
 
 class MatchStatisticsAdmin(admin.ModelAdmin):
@@ -28,7 +28,7 @@ class MatchStatisticsAdmin(admin.ModelAdmin):
     list_filter = ["match__date", "match__mtype", "match__home_or_away", "result"]
     date_hierarchy = "match__date"
     inlines = (BatsmanAdmin, BowlerAdmin)
-
+    autocomplete_fields = ["batsman__player", "bowler__player"]
 
     def date(self, x):
         return x.match.date
