@@ -190,3 +190,6 @@ sentry_sdk.init(
 
 MEDIA_ROOT = f"{os.environ['DJANGO_CRICBOX_PATH']}cricbox/media/"
 MEDIA_URL = "/media/"
+
+# setting the default primary key back to an integer after upgrading to django 3.2 (https://dev.to/rubyflewtoo/upgrading-to-django-3-2-and-fixing-defaultautofield-warnings-518n)
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
